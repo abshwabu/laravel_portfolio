@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
+            $table->string("role");
+            $table->string("start_date");
+            $table->string("end_date");
+            $table->string("company");
+            $table->string("company_url")->nullable();
+            $table->enum("job_type",['onsite','remote','hybrid']);
             $table->timestamps();
         });
     }

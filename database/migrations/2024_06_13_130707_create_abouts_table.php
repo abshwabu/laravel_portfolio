@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('abouts', function (Blueprint $table) {
             $table->id();
+            $table->string("pronouns")->nullable();
+            $table->string("location")->nullable();
+            $table->string("languages")->nullable();
+            $table->string("hobbies")->nullable();
+            $table->boolean("has_education")->default(true);
+            $table->string("education_degree")->nullable();
+            $table->string("education_location")->nullable();
+            $table->string("achievements")->nullable();
             $table->timestamps();
         });
     }

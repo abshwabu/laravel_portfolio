@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string("username")->nullable();
+            $table->string("name")->nullable();
+            $table->string("title")->nullable();
+            $table->string("linkedin_url")->nullable();
+            $table->string("github_url")->nullable();
+            $table->string("instagram_url")->nullable();
+            $table->string("hero_gif")->nullable();
             $table->timestamps();
         });
     }

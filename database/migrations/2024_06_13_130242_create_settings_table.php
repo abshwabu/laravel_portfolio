@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string("github_url")->nullable();
             $table->string("instagram_url")->nullable();
             $table->string("hero_gif")->nullable();
+            $table->string("email")->nullable();
+            $table->string("phone")->nullable();
             $table->timestamps();
         });
     }

@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string("hero_gif")->nullable();
             $table->string("email")->nullable();
             $table->string("phone")->nullable();
+            $table->string("pronouns")->nullable();
+            $table->string("location")->nullable();
+            $table->string("languages")->nullable();
+            $table->string("hobbies")->nullable();
             $table->timestamps();
         });
     }

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class TechStack extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "url",
+        "image",
+    ];
 }

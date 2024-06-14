@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Education extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "title",
-        "image",
-        "url",
-        "keyword",
-        "description",
+        "has_education",
+        "education_degree",
+        "education_location",
+        "achievements",
     ];
 }

@@ -51,7 +51,7 @@
 
 <body>
     <header class="header">
-        <a href="/" class="header-logo">{{ '@' . zz }}</a>
+        <a href="/" class="header-logo">{{ '@' . $user->username }}</a>
         <nav class="nav">
             <div class="toggle"><i class="fas fa-bars"></i></div>
             <ul class="nav-menu">

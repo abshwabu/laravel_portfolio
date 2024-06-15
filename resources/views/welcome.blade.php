@@ -12,7 +12,7 @@
                             href="{{ $user->github_url }}">{{ $user->username }}</a></em></h3>
             </div>
             <div class="art-me">
-                <img src="{{ asset('storage/' . $user->hero_gift) }}" alt="{{ $user->name }}">
+                <img src="{{ asset('storage/' . $user->hero_gif) }}" alt="{{ $user->name }}">
             </div>
             <div class="landing-page-socials">
                 <ul>

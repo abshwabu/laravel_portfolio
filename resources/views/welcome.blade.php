@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="social-link">
-                        <a href="{{ $user->insta_url }}" aria-label="Instagram" target="_blank">
+                        <a href="{{ $user->instagram_url }}" aria-label="Instagram" target="_blank">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
                     </li>

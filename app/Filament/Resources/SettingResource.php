@@ -29,11 +29,11 @@ class SettingResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('title')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('linkedin_url')
+                Forms\Components\TextInput::make('linkedin_url')->url()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('github_url')
+                Forms\Components\TextInput::make('github_url')->url()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('instagram_url')
+                Forms\Components\TextInput::make('instagram_url')->url()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('hero_gif')
                     ->maxLength(255),

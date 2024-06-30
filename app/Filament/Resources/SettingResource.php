@@ -216,14 +216,7 @@ class SettingResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('linkedin_url')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('github_url')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('instagram_url')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('hero_gif')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
@@ -231,10 +224,6 @@ class SettingResource extends Resource
                 Tables\Columns\TextColumn::make('pronouns')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('location')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('languages')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('hobbies')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

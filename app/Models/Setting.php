@@ -23,4 +23,9 @@ class Setting extends Model
         "languages",
         "hobbies",
     ];
+
+    protected $casts =[
+        'language' => 'array',
+        'hobbies' => 'array',
+    ];
 }

@@ -24,8 +24,10 @@ class ImageResource extends Resource
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
+                    ->columnSpan(2)
                     ->image(),
                 Forms\Components\TextInput::make('url')
+                    ->url()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('title')
                     ->maxLength(255),

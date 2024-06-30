@@ -27,9 +27,11 @@ class TechStackResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('url')
+                    ->url()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
                     ->image()
+                    ->columnSpanFull()
                     ->required(),
             ]);
     }

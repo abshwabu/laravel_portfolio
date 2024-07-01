@@ -108,7 +108,12 @@
                         <div class="card-description">
                             @foreach ($experience->tasks as $task)
                                 <h5>{{ $task->title }}</h5>
-                                <p>{{ $task->description }}.</p>
+                                @php
+                                $tasks = explode(',', $task->tasks);
+                            @endphp
+                            @foreach ($tasks as $task)
+                                <p>{{ $task }}</p>
+                            @endforeach>
                             @endforeach
                         </div>
                     </div>

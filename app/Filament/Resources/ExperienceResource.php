@@ -26,18 +26,23 @@ class ExperienceResource extends Resource
                 Forms\Components\TextInput::make('role')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('start_date')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('end_date')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\DatePicker::make('start_date')
+                    ->required(),
+                Forms\Components\DatePicker::make('end_date')
+                    ->required(),
                 Forms\Components\TextInput::make('company')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('company_url')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('job_type')
+                Forms\Components\Select::make('job_type')
+                    ->options(
+                        [
+                            "remote"=>"Remote",
+                            "onsite"=>"Onsite",
+                            "hybrid"=>"Hybrid",
+                        ]
+                    )
                     ->required(),
             ]);
     }
@@ -53,8 +58,6 @@ class ExperienceResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('company_url')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('job_type'),
                 Tables\Columns\TextColumn::make('created_at')

@@ -86,7 +86,7 @@
                         <div class="card-description">
                             <h5>Achievements</h5>
                             @php
-                                $achievements = explode(',', $education->education_achievements);
+                                $achievements = explode(',', $education->achievements);
                             @endphp
                             @foreach ($achievements as $achievement)
                                 <p>{{ $achievement }}</p>

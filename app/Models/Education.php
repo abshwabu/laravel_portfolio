@@ -15,4 +15,7 @@ class Education extends Model
         "education_location",
         "achievements",
     ];
+    protected $casts =[
+        'achievements' => 'array',
+    ];
 }

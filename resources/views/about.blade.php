@@ -16,7 +16,7 @@
             </p>
             <div class="profile-container">
                 <div class="me-icon-container">
-                    <img class="me-icon" src="{{ asset('storage/' . $user->hero_gift) }}" alt="{{ $user->name }}"
+                    <img class="me-icon" src="{{ asset('storage/' . $user->hero_gif) }}" alt="{{ $user->name }}"
                         title="Icon of me and Coconut. Art credits to @wynn.draws">
                 </div>
                 <div class="terminal-container">
@@ -52,7 +52,9 @@
                                 {{ $user->username }}.<span class="green">languages</span>
                             </p>
                             <p class="return">
-                                [{{$user->languages}}]
+                                [ @foreach ($user->languages as $language)
+                                    {{ $language }},
+                                @endforeach ]
                             </p>
                         </div>
                         <div class="statement">

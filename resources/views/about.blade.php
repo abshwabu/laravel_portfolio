@@ -52,9 +52,7 @@
                                 {{ $user->username }}.<span class="green">languages</span>
                             </p>
                             <p class="return">
-                                {{-- [ @foreach ($user->languages as $language)
-                                    {{ $language }},
-                                @endforeach ] --}}
+                                [{{$user->languages}}]
                             </p>
                         </div>
                         <div class="statement">

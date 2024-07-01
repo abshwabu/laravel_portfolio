@@ -52,18 +52,19 @@
                                 {{ $user->username }}.<span class="green">languages</span>
                             </p>
                             <p class="return">
-                                [ @foreach ($user->languages as $language)
+                                {{-- [ @foreach ($user->languages as $language)
                                     {{ $language }},
-                                @endforeach ]
+                                @endforeach ] --}}
                             </p>
                         </div>
                         <div class="statement">
                             <p class="input">
-                                {{ $user->username }}.<span class="green">bearPuppy</span>
+                                {{ $user->username }}.<span class="green">hobies</span>
                             </p>
                             <p class="return">
-                                <a target="_blank" href="{{ $user->insta_url }}"
-                                    class="hyperlink">{{ $user->pit_animal }}</a>
+                                [ @foreach ($user->hobbies as $language)
+                                    {{ $language }},
+                                @endforeach ]
                             </p>
                         </div>
                         <div class="statement">

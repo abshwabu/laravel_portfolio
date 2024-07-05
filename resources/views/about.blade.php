@@ -124,13 +124,11 @@
             <h3>Tech Stack</h3>
             <div class="tech-stack-container">
                 @foreach ($techstasks as $item)
-                    <a href="{{ $item->url }}">
                         <div class="skill">
                             <img style="width: 35px;border-radius: 50%;height: 35px;"
                                 src="{{ asset('storage/' . $item->image) }}"
                                 alt="{{ $item->name }}"><span>{{ $item->name }}</span>
                         </div>
-                    </a>
                 @endforeach
             </div>
         </section>

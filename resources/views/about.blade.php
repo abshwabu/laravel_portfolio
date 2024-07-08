@@ -109,7 +109,7 @@
                             @foreach ($experience->tasks as $task)
                                 <h5>{{ $task->title }}</h5>
                                 @php
-                                $tasks = explode(',', $task->tasks);
+                                $tasks = explode('.', $task->tasks);
                             @endphp
                             @foreach ($tasks as $task)
                                 <p>{{ $task }}</p>

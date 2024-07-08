@@ -31,7 +31,7 @@
                     <div class="terminal-window">
                         <div class="statement">
                             <p class="input">
-                                {{ $user->username }}.<span class="green">pronouns</span>
+                                {{ $user->username }}.<span class="green">name</span>
                             </p>
                             <p class="return">
                                 {{ $user->pronouns }}

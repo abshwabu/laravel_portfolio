@@ -107,19 +107,10 @@ h4, h5 {
 
 .education-experience-card {
     margin-top: 25px;
-    background-color: #1E2732; /* Match this with the container's background color */
-    padding: 20px;
-    border-radius: 10px; /* Optional: Add border-radius for rounded corners */
-    color: #FFFFFF; /* Ensure the text color is readable */
 }
 
 .card-info p {
     margin-top: 0.35em;
-    color: #FFFFFF; /* Ensure text color is readable */
-}
-
-.card-info p a {
-    color: #7EB77F; /* Ensure link color is readable */
 }
 
 .card-info p a:hover {
@@ -128,7 +119,6 @@ h4, h5 {
 
 .card-description {
     margin: 15px 0 0 15px;
-    color: #FFFFFF; /* Ensure text color is readable */
 }
 
 .card-description p:not(:first-child) {

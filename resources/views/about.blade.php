@@ -3,7 +3,7 @@
     About us
 @endsection
 @section('content')
-    
+
 
     <main class="main-container about-section">
         <section id="profile">
@@ -113,13 +113,14 @@
                             @endphp
                             @foreach ($tasks as $task)
                                 <p>{{ $task }}</p>
-                            @endforeach>
+                            @endforeach
                             @endforeach
                         </div>
                     </div>
                 @endforeach
-
+            </div>
         </section>
+
         <section id="tech-stack">
             <h3>Tech Stack</h3>
             <div class="tech-stack-container">

@@ -3,7 +3,7 @@
     About us
 @endsection
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/about.css') }}" type="text/css">
+    
 
     <main class="main-container about-section">
         <section id="profile">

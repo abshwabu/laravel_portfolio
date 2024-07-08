@@ -44,6 +44,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/projects.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}" type="text/css">
 </head>
 @php
     $user = App\Models\Setting::first();

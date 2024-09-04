@@ -148,7 +148,7 @@
                     <i class="fa-brands fa-github"></i>
                     GitHub
                 </a>
-                <a href="{{ $item->insta_url }}" class="social-media-item">
+                <a href="{{ $user->insta_url }}" class="social-media-item">
                     <i class="fa-brands fa-instagram"></i>
                     Instagram
                 </a>

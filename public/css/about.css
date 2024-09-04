@@ -109,7 +109,9 @@ h4, h5 {
     margin-top: 25px;
 }
 
-.card-info p {
+.card-info{
+    background-color: #1D263B; /* Set background to black */
+    color: #7EB77F; 
     margin-top: 0.35em;
 }
 
@@ -212,6 +214,7 @@ h4, h5 {
     }
 
     .education-experience-card {
+        
         display: flex;
         justify-content: space-between;
     }

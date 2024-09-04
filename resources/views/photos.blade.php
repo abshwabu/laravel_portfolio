@@ -8,7 +8,7 @@
             <section class="projects">
                 <div class="page-title">
                     <img src="./img/coding.svg" alt="Code Icon">
-                    <h2>{{ $user->username }}.<span class="pink">Photos</span></h2>
+                    <h2>{{ $user->username }}.<span class="pink">Certficate</span></h2>
                 </div>
                 <p class="section-description">
                     See <a class="hyperlink" href="{{ $user->insta_url }}">instagram</a> profile for more details.

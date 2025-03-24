@@ -126,7 +126,7 @@
             <div class="tech-stack-container">
                 @foreach ($techstasks as $item)
                         <div class="skill">
-                            <img style="width: 35px;border-radius: 50%;height: 35px;"
+                            <img style="width: 35px;border-radius: 50%;height: 35px; object-fit: cover;"
                                 src="{{ asset('storage/' . $item->image) }}"
                                 alt="{{ $item->name }}"><span>{{ $item->name }}</span>
                         </div>

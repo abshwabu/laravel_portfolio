@@ -50,7 +50,7 @@ a, span {
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
-    color: #F08CAE;
+    color: #ADD8E6;
 }
 
 ul {
@@ -62,7 +62,7 @@ ul {
 }
 
 .social-link a i:hover {
-    color: #F08CAE;
+    color: #ADD8E6;
 }
 
 .main-container {
@@ -82,7 +82,7 @@ section {
 }
 
 section .hyperlink {
-    color: #F08CAE;
+    color: #ADD8E6;
     font-weight: 700;
     text-decoration: underline;
     transition: all 0.2s ease;

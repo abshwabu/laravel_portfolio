@@ -38,13 +38,13 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/main.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/header.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/home.css?v=2') }}" type="text/css">
 
-    <link rel="stylesheet" href="{{ asset('css/projects.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/about.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/projects.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/footer.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/about.css?v=2') }}" type="text/css">
 </head>
 @php
     $user = App\Models\Setting::first();

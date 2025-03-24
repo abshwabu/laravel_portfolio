@@ -140,19 +140,19 @@
                 internet.
             </p>
             <div class="social-media-list">
-                <a href="{{ $user->linkedin_url }}" class="social-media-item">
+                <a href="{{ $user->linkedin_url }}" class="social-media-item" target="_blank">
                     <i class="fa-brands fa-linkedin-in"></i>
                     LinkedIn
                 </a>
-                <a href="{{ $user->github_url }}" class="social-media-item">
+                <a href="{{ $user->github_url }}" class="social-media-item" target="_blank">
                     <i class="fa-brands fa-github"></i>
                     GitHub
                 </a>
-                <a href="{{ $user->insta_url }}" class="social-media-item">
-                    <i class="fa-brands fa-instagram"></i>
-                    Instagram
+                <a href="{{ $user->instagram_url }}" class="social-media-item" target="_blank">
+                    <i class="fa-brands fa-telegram"></i>
+                    Telegram
                 </a>
-                <a href="mailto:{{ $user->email }}" class="social-media-item">
+                <a href="mailto:{{ $user->email }}" class="social-media-item" >
                     <i class="fa-solid fa-envelope"></i>
                     Email
                 </a>

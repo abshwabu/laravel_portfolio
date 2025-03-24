@@ -8,7 +8,7 @@
             <div class="landing-page-details">
                 <h1 class="small-title">Hi,</h1>
                 <h2 class="big-title">I'm <span class="my-name {{ $user->name }}">{{ $user->name }}</span></h2>
-                <h3 class="medium-title"><em>{{ $user->title }} @ <a class="pink"
+                <h3 class="medium-title"><em>{{ $user->title }} @ <a class="hyperlink"
                             href="{{ $user->github_url }}">{{ $user->username }}</a></em></h3>
             </div>
             <div class="art-me">
@@ -28,7 +28,7 @@
                     </li>
                     <li class="social-link">
                         <a href="{{ $user->instagram_url }}" aria-label="Instagram" target="_blank">
-                            <i class="fa-brands fa-instagram"></i>
+                            <i class="fa-brands fa-telegram"></i>
                         </a>
                     </li>
                 </ul>
@@ -38,7 +38,7 @@
             <h2>Select Projects</h2>
             <p class="section-description">
                 Here are some personal projects I have worked on.<br>
-                You can find more on <a class="hyperlink" href="https://github.com/anniedotexe">GitHub</a>.
+                You can find more on <a class="hyperlink" href="https://github.com/abshwabu">GitHub</a>.
             </p>
             <div class="project-cards-container">
                 @foreach ($projects as $project)

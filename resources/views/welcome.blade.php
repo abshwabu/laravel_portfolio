@@ -45,7 +45,7 @@
                     <div class="card">
                         <img src="{{ asset('storage/' . $project->image) }}" alt="Project Preview Screenshot"
                             class="card-preview-img">
-                        <div class="card-info">
+                        <div class="project-card-info">
                             <div class="title-and-links">
                                 <span class="project-title">
                                     {{ $project->title }}

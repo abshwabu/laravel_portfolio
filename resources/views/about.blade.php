@@ -17,7 +17,7 @@
             <div class="profile-container">
                 <div class="me-icon-container">
                     <img class="me-icon" src="{{ asset('storage/' . $user->hero_gif) }}" alt="{{ $user->name }}"
-                        title="Icon of me and Coconut. Art credits to @wynn.draws">
+                        title="That is me">
                 </div>
                 <div class="terminal-container">
                     <div class="terminal-header">
@@ -126,9 +126,9 @@
             <div class="tech-stack-container">
                 @foreach ($techstasks as $item)
                         <div class="skill">
-                            <img style="width: 35px;border-radius: 50%;height: 35px; object-fit: cover;"
+                            <img style="width: 35px;height: 35px; object-fit: scale-down; margin-right: 5px;"
                                 src="{{ asset('storage/' . $item->image) }}"
-                                alt="{{ $item->name }}"><span>{{ $item->name }}</span>
+                                alt="{{ $item->name }}"><a href="{{ $item->url }}">{{ $item->name }}</a>
                         </div>
                 @endforeach
             </div>

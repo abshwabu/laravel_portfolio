@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="{{ asset('css/header.css?v=2') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/home.css?v=2') }}" type="text/css">
 
-    <link rel="stylesheet" href="{{ asset('css/projects.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/projects.css?v=3') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/footer.css?v=2') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/about.css?v=2') }}" type="text/css">
 </head>
@@ -105,7 +105,7 @@
             <div class="footer-column">
                 <a href="{{ route('photos') }}" class="footer-button">
                     <img src="{{ asset('img/camera.svg') }}" alt="Camera Icon">
-                    Photos
+                    Certificates
                 </a>
                 <a href="mailto:{{ $user->email }}" class="footer-button">
                     <img src="{{ asset('img/email.svg') }}" alt="Email Icon">

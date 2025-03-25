@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 
 class ProjectResource extends Resource
 {
@@ -37,6 +39,11 @@ class ProjectResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
+                TextInput::make('github_url')
+                    ->label('GitHub URL')
+                    ->url()
+                    ->placeholder('https://github.com/username/repository')
+                    ->nullable(),
             ]);
     }
 
@@ -51,6 +58,10 @@ class ProjectResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('keyword')
                     ->searchable(),
+                TextColumn::make('github_url')
+                    ->label('GitHub URL')
+                    ->url()
+                    ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

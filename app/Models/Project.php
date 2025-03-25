@@ -15,5 +15,6 @@ class Project extends Model
         "url",
         "keyword",
         "description",
+        "github_url"
     ];
 }

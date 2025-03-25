@@ -16,7 +16,17 @@ em {
 .card {
     display: inline-flex;
     flex-direction: column;
-    color: #1D263B;
+    color: #FFFFFF;
+    background-color: rgba(26, 26, 26, 0.9);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: scale(1.02);
 }
 
 .card:not(:last-child) {
@@ -25,15 +35,20 @@ em {
 
 .card-preview-img {
     max-width: 100%;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 10px 10px 0 0;
-    padding: 5px;
-    background-color: white;
+    padding: 0;
+    background-color: #1a1a1a;
 }
 
 .card-info {
     padding: 25px;
-    background-color: #FFFFFF;
+    background-color: #1a1a1a !important;
     border-radius: 0 0 10px 10px;
+    height: 100%;
+    width: 100% !important;
 }
 
 .has-no-preview .card-info {
@@ -48,10 +63,11 @@ em {
 }
 
 .project-title {
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: #1D263B;
+    color: #FFFFFF;
+    margin-bottom: 15px;
 }
 
 .project-links {
@@ -61,9 +77,6 @@ em {
 
 .project-links a i {
     padding: 5px;
-}
-
-.project-links a i {
     color: #ADD8E6;
     font-size: 1.2em;
     transition: all 0.2s ease;
@@ -80,16 +93,21 @@ em {
 }
 
 .project-skills {
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #7EB77F;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(126, 183, 127, 0.3);
 }
 
 .project-skills span {
+    background-color: rgba(15, 163, 177, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
     color: #0FA3B1;
-    font-weight: 700;
-    font-size: 0.9em;
+    font-weight: 600;
+    font-size: 0.85em;
     letter-spacing: 0.05em;
+    display: inline-block;
+    margin-bottom: 5px;
 }
 
 .project-skills span:not(:last-child) {
@@ -97,7 +115,16 @@ em {
 }
 
 .project-description {
-    color: #1D263B;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+@media only screen and (min-width: 768px) {
+    .project-cards-container {
+        column-count: 2;
+        column-gap: 2em;
+    }
 }
 
 @media only screen and (min-width: 768px) {

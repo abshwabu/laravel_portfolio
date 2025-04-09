@@ -3,35 +3,23 @@
     Photos
 @endsection
 @section('content')
-    
-        <main class="main-container project-section">
-            <section class="projects">
-                <div class="page-title">
-                    <img src="./img/coding.svg" alt="Code Icon">
-                    <h2>{{ $user->username }}.<span class="pink">Certficate</span></h2>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h1>Certificates & Photos</h1>
+            
+            <div class="photo-cards-container">
+                @foreach($photos as $photo)
+                <div class="card">
+                    <img src="{{ asset('storage/' . $photo->image) }}" alt="{{ $photo->title }}" class="card-preview-img">
+                    <div class="project-card-info">
+                        <h3 class="project-title">{{ $photo->title }}</h3>
+                        <p class="project-description">{{ $photo->description }}</p>
+                    </div>
                 </div>
-                <p class="section-description">
-                    See <a class="hyperlink" href="{{ $user->github_url }}">GitHub</a> profile for more details.
-                </p>
-                <div class="project-cards-container">
-                    @foreach ($photos as $photo)
-                        <a href="{{ $photo->url }}">
-                            <div class="card">
-                                <img src="{{ asset('storage/' . $photo->image) }}" alt="Project Preview Screenshot"
-                                    class="card-preview-img">
-                                <div class="card-info">
-                                    <div class="title-and-links">
-                                        <span class="project-title">
-                                            {{ $photo->title }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                </div>
-                </a>
                 @endforeach
-
-                </div>
-            </section>
-        </main>
-    @endsection
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

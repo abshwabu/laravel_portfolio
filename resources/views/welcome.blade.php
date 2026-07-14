@@ -44,7 +44,7 @@
                 @foreach ($projects as $project)
                     <div class="card">
                         <img src="{{ asset('storage/' . $project->image) }}" alt="Project Preview Screenshot"
-                            class="card-preview-img">
+                            class="card-preview-img" loading="lazy">
                         <div class="project-card-info">
                             <div class="title-and-links">
                                 <span class="project-title">
@@ -54,7 +54,7 @@
                                     <a href="{{ $project->url }}">
                                         <i class="fas fa-external-link-alt"></i>
                                     </a>
-                                    <a href="{{ $project->url }}">
+                                    <a href="{{ $project->github_url }}">
                                         <i class="fa-brands fa-github"></i>
                                     </a>
                                 </div>
@@ -76,7 +76,7 @@
         </section>
         <div class="cta-container">
             <a href="/projects" class="cta">
-                <img src="{{ asset('img/coding.svg') }}" alt="Code Icon">
+                <img src="{{ asset('img/coding.svg') }}" alt="Code Icon" loading="lazy">
                 <span>Explore More</span>
             </a>
         </div>

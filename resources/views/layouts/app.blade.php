@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+@php
+    $user = App\Models\Setting::first();
+@endphp
 
 <head>
-    <title>@yield('title')</title>
+    <title>@yield('title') | {{ $user->name }} — {{ $user->title }}</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -10,27 +13,27 @@
 
     <meta charset="UTF-8">
 
-    <meta property="og:title" content="Annie Wu" />
+    <meta property="og:title" content="{{ $user->name }} — {{ $user->title }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://anniew.xyz" />
-    <meta property="og:description" content="Hi! I'm Annie." />
+    <meta property="og:url" content="https://abshewabu.dev" />
+    <meta property="og:description" content="{{ $user->name }} — {{ $user->title }}. Portfolio, projects, and certificates." />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content="https://anniew.xyz/img/me-icon-smiling.png" />
+    <meta property="og:image" content="https://abshewabu.dev/storage/{{ $user->hero_gif }}" />
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Annie Wu">
-    <meta name="twitter:description" content="Hi! I'm Annie.">
-    <meta name="twitter:image" content="https://anniew.xyz/img/me-icon-smiling.png">
-    <meta name="twitter:site" content="@anniedotexe">
+    <meta name="twitter:title" content="{{ $user->name }} — {{ $user->title }}">
+    <meta name="twitter:description" content="{{ $user->name }} — {{ $user->title }}. Portfolio, projects, and certificates.">
+    <meta name="twitter:image" content="https://abshewabu.dev/storage/{{ $user->hero_gif }}">
+    <meta name="twitter:site" content="{{ '@' . $user->username }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="copyright" content="Annie Wu">
-    <meta name="description" content="Hi! I'm Annie.">
+    <meta name="copyright" content="{{ $user->name }}">
+    <meta name="description" content="{{ $user->name }} — {{ $user->title }}. Portfolio, projects, and certificates.">
     <meta name="keywords"
-        content="Annie Wu, Annie Wu Portfolio, Annie Wu Photography, photographer, developer, java, python, html, css, javascript, web developer, webdev, portfolio, quality assurance, qa engineer, quality assurance engineer">
-    <meta name="robots" content="noindex, nofollow" />
+        content="{{ $user->name }}, {{ $user->title }}, portfolio, developer, web developer, projects, certificates">
+    <meta name="robots" content="index, follow" />
 
-    <link rel="canonical" href="https://anniew.xyz" />
+    <link rel="canonical" href="https://abshewabu.dev" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,9 +49,6 @@
     <link rel="stylesheet" href="{{ asset('css/footer.css?v=2') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/about.css?v=2') }}" type="text/css">
 </head>
-@php
-    $user = App\Models\Setting::first();
-@endphp
 
 <body>
     <header class="header">
@@ -93,22 +93,22 @@
             </div>
             <div class="footer-column">
                 <a href="{{ route('about') }}" class="footer-button">
-                    <img src="{{ asset('img/smile.svg') }}" alt="Smile Icon">
+                    <img src="{{ asset('img/smile.svg') }}" alt="Smile Icon" loading="lazy">
                     About
                 </a>
                 <a href="{{ route('projects') }}" class="footer-button">
-                    <img src="{{ asset('img/coding.svg') }}" alt="Code Icon">
+                    <img src="{{ asset('img/coding.svg') }}" alt="Code Icon" loading="lazy">
                     Projects
                 </a>
 
             </div>
             <div class="footer-column">
                 <a href="{{ route('photos') }}" class="footer-button">
-                    <img src="{{ asset('img/camera.svg') }}" alt="Camera Icon">
+                    <img src="{{ asset('img/camera.svg') }}" alt="Camera Icon" loading="lazy">
                     Certificates
                 </a>
                 <a href="mailto:{{ $user->email }}" class="footer-button">
-                    <img src="{{ asset('img/email.svg') }}" alt="Email Icon">
+                    <img src="{{ asset('img/email.svg') }}" alt="Email Icon" loading="lazy">
                     Contact
                 </a>
             </div>

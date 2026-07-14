@@ -4,81 +4,71 @@
 @endsection
 @section('content')
     <main class="main-container home-section">
-        <section id="home">
-            <div class="landing-page-details">
-                <h1 class="small-title">Hi,</h1>
-                <h2 class="big-title">I'm <span class="my-name {{ $user->name }}">{{ $user->name }}</span></h2>
-                <h3 class="medium-title"><em>{{ $user->title }} @ <a class="hyperlink"
-                            href="{{ $user->github_url }}">{{ $user->username }}</a></em></h3>
-            </div>
-            <div class="art-me">
-                <img src="{{ asset('storage/' . $user->hero_gif) }}" alt="{{ $user->name }}">
-            </div>
-            <div class="landing-page-socials">
-                <ul>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">$ whoami</p>
+                <h1 class="hero-title">{{ $user->name }}</h1>
+                <p class="hero-subline">{{ $user->title }}</p>
+                <ul class="hero-socials">
                     <li class="social-link">
-                        <a href="{{ $user->linkedin_url }}" aria-label="LinkedIn" target="_blank">
+                        <a href="{{ $user->linkedin_url }}" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                             <i class="fa-brands fa-linkedin-in"></i>
                         </a>
                     </li>
                     <li class="social-link">
-                        <a href="{{ $user->github_url }}" aria-label="GitHub" target="_blank">
+                        <a href="{{ $user->github_url }}" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </li>
                     <li class="social-link">
-                        <a href="{{ $user->instagram_url }}" aria-label="Instagram" target="_blank">
+                        <a href="{{ $user->instagram_url }}" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <i class="fa-brands fa-telegram"></i>
                         </a>
                     </li>
                 </ul>
             </div>
+            <div class="hero-image-card">
+                <img src="{{ asset('storage/' . $user->hero_gif) }}" alt="{{ $user->name }}">
+            </div>
         </section>
-        <section class="projects" id="select-projects">
+
+        <section class="home-projects" id="select-projects">
+            <p class="eyebrow">$ ls ./select-projects</p>
             <h2>Select Projects</h2>
             <p class="section-description">
-                Here are some personal projects I have worked on.<br>
-                You can find more on <a class="hyperlink" href="https://github.com/abshwabu">GitHub</a>.
+                Here are some personal projects I have worked on.
+                You can find more on <a class="hyperlink" href="{{ $user->github_url }}">GitHub</a>.
             </p>
             <div class="project-cards-container">
                 @foreach ($projects as $project)
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $project->image) }}" alt="Project Preview Screenshot"
+                    <article class="card project-card">
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} preview"
                             class="card-preview-img" loading="lazy">
                         <div class="project-card-info">
-                            <div class="title-and-links">
-                                <span class="project-title">
-                                    {{ $project->title }}
-                                </span>
-                                <div class="project-links">
-                                    <a href="{{ $project->url }}">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                    <a href="{{ $project->github_url }}">
-                                        <i class="fa-brands fa-github"></i>
-                                    </a>
-                                </div>
-                            </div>
+                            <h3 class="project-title">{{ $project->title }}</h3>
                             <div class="project-skills">
-                                @php
-                                    $keywords = explode(',', $project->keyword);
-                                @endphp
-                                @foreach ($keywords as $keyword)
-                                    <span>{{ $keyword }}</span>
+                                @foreach (explode(',', $project->keyword) as $keyword)
+                                    <span>{{ trim($keyword) }}</span>
                                 @endforeach
                             </div>
-                            <p class="project-description">
-                                {{ $project->description }}
-                            </p>
+                            <p class="project-description">{{ $project->description }}</p>
+                            <div class="project-links">
+                                <a href="{{ $project->url }}" aria-label="Visit {{ $project->title }} live site"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="{{ $project->github_url }}" aria-label="View {{ $project->title }} on GitHub"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    </article>
                 @endforeach
+            </div>
+            <div class="cta-container">
+                <a href="/projects" class="cta-button">Explore More</a>
+            </div>
         </section>
-        <div class="cta-container">
-            <a href="/projects" class="cta">
-                <img src="{{ asset('img/coding.svg') }}" alt="Code Icon" loading="lazy">
-                <span>Explore More</span>
-            </a>
-        </div>
     </main>
 @endsection

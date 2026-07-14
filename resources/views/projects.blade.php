@@ -1,53 +1,75 @@
 @extends('layouts.app')
 @section('title')
-    Home
+    Projects
 @endsection
 @section('content')
-    
-        <main class="main-container project-section">
-            <section class="projects">
-                <div class="page-title">
-                    <img src="./img/coding.svg" alt="Code Icon">
-                    <h2>{{ $user->username }}.<span class="pink">projects</span></h2>
-                </div>
-                <p class="section-description">
-                    See <a class="hyperlink" href="{{ $user->github_url }}">GitHub</a> profile for more details.
-                </p>
-                <div class="project-cards-container">
-                    @foreach ($projects as $project)
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $project->image) }}"
-                            alt="Project Preview Screenshot" class="card-preview-img">
-                        <div class="project-card-info">
-                            <div class="title-and-links">
-                                <span class="project-title">
-                                    {{ $project->title }}
-                                </span>
-                                <div class="project-links">
-                                    <a href="{{ $project->url }}">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </a>
-                                    <a href="{{ $project->github_url }}">
-                                        <i class="fa-brands fa-github"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="project-skills">
-                                @php
-                                        $keywords = explode(',', $project->keyword);
-                                    @endphp
-                                    @foreach ($keywords as $keyword)
-                                        <span>{{ $keyword }}</span>
-                                    @endforeach
-                            </div>
-                            <p class="project-description">
-                                {{ $project->description }}
-                            </p>
-                        </div>
-                    </div>
-                    @endforeach
+    @php
+        $keywordMap = [];
+        foreach ($projects as $project) {
+            foreach (explode(',', $project->keyword) as $keyword) {
+                $trimmed = trim($keyword);
+                if ($trimmed === '') {
+                    continue;
+                }
+                $key = strtolower($trimmed);
+                if (! isset($keywordMap[$key])) {
+                    $keywordMap[$key] = $trimmed;
+                }
+            }
+        }
+        $uniqueKeywords = array_values($keywordMap);
+        sort($uniqueKeywords, SORT_NATURAL | SORT_FLAG_CASE);
+    @endphp
 
-                </div>
-            </section>
-        </main>
-    @endsection
+    <main class="main-container project-section">
+        <section class="projects">
+            <p class="eyebrow">$ ls ~/projects --all</p>
+            <h2>Projects</h2>
+            <p class="section-description">
+                See <a class="hyperlink" href="{{ $user->github_url }}">GitHub</a> profile for more details.
+            </p>
+
+            <div class="project-filter" id="project-filter">
+                <button type="button" class="filter-pill is-active" data-tag="all">All</button>
+                @foreach ($uniqueKeywords as $keyword)
+                    <button type="button" class="filter-pill"
+                        data-tag="{{ strtolower($keyword) }}">{{ $keyword }}</button>
+                @endforeach
+            </div>
+
+            <div class="project-cards-container">
+                @foreach ($projects as $project)
+                    @php
+                        $projectTags = collect(explode(',', $project->keyword))
+                            ->map(fn ($keyword) => strtolower(trim($keyword)))
+                            ->filter()
+                            ->implode(',');
+                    @endphp
+                    <article class="card project-card" data-tags="{{ $projectTags }}">
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} preview"
+                            class="card-preview-img" loading="lazy">
+                        <div class="project-card-info">
+                            <h3 class="project-title">{{ $project->title }}</h3>
+                            <div class="project-skills">
+                                @foreach (explode(',', $project->keyword) as $keyword)
+                                    <span>{{ trim($keyword) }}</span>
+                                @endforeach
+                            </div>
+                            <p class="project-description">{{ $project->description }}</p>
+                            <div class="project-links">
+                                <a href="{{ $project->url }}" aria-label="Visit {{ $project->title }} live site"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="{{ $project->github_url }}" aria-label="View {{ $project->title }} on GitHub"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    </main>
+@endsection

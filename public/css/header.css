@@ -1,101 +1,154 @@
-a {
-    text-decoration: none;
-}
-
 header {
-    margin: 0 auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
     width: 100%;
-    max-width: 1600px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    text-align: center;
     align-items: center;
-    height: 70px;
-    padding: 0 15px;
-    z-index: 2;
-    background-color: #1D263B;
+    height: 4rem;
+    padding: 0 max(clamp(1.25rem, 4vw, 2rem), calc((100% - var(--max-width)) / 2));
+    background-color: var(--paper);
+    border-bottom: 1px solid var(--line);
 }
 
 .header-logo {
-    padding: 10px;
-    font-size: 1.2em;
-    letter-spacing: 0.05em;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+}
+
+.header-logo:hover {
+    color: var(--accent);
+}
+
+.nav {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .nav-menu {
     list-style-type: none;
-    position: absolute;
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
-    align-items: center;
-    left: 0;
 }
 
 .nav-item {
     text-align: center;
-    display: none;
 }
 
 .nav-item a {
     display: block;
-    padding: 20px;
-    font-weight: 700;
-    width: 100vw;
-    letter-spacing: 0.1em;
-    transition: all 0.2s ease;
-    color: #1D263B;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+    padding: 0.75rem 1rem;
+    position: relative;
+    transition: color 0.2s ease;
 }
 
-.nav-item a:hover, .nav-item a:focus {
-    color: #ADD8E6;
-    text-decoration: underline;
+.nav-item a:hover,
+.nav-item a:focus {
+    color: var(--ink);
 }
 
-.active {
-    background-color: white;
+.nav-item a.is-current {
+    color: var(--ink);
+    font-weight: 600;
 }
 
-.active .nav-item {
-    display: block;
+.nav-item a.is-current::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.35rem;
+    height: 2px;
+    background-color: var(--gold);
+    border-radius: 1px;
 }
 
 .toggle {
-    padding: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--ink);
 }
 
 .toggle i {
-    font-size: 2em;
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 767px) {
+    .nav-item {
+        display: none;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 4rem;
+        left: 0;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        background-color: var(--paper);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 12px 24px color-mix(in srgb, var(--ink) 6%, transparent);
+    }
+
+    .nav-menu.active .nav-item {
+        display: block;
+        border-top: 1px solid var(--line);
+    }
+
+    .nav-menu.active .nav-item:first-child {
+        border-top: none;
+    }
+
+    .nav-item a {
+        width: 100%;
+        padding: 1rem max(clamp(1.25rem, 4vw, 2rem), calc((100% - var(--max-width)) / 2));
+        text-align: left;
+    }
+
+    .nav-item a.is-current::after {
+        left: max(clamp(1.25rem, 4vw, 2rem), calc((100% - var(--max-width)) / 2));
+        right: auto;
+        width: 2rem;
+    }
 }
 
 @media only screen and (min-width: 768px) {
     .nav {
         display: flex;
-        text-align: center;
-        justify-content: space-between;
         align-items: center;
     }
+
     .nav-menu {
-        position: relative;
-        align-items: center;
+        display: flex;
         flex-direction: row;
-        background-color: #1D263B;
-        height: fit-content;
-        height: -moz-fit-content;
+        align-items: center;
+        gap: 0.25rem;
     }
+
     .nav-item {
-        position: relative;
         display: block;
-        width: fit-content;
-        width: -moz-fit-content;
-        margin: 0;
     }
+
     .nav-item a {
-        width: fit-content;
-        width: -moz-fit-content;
-        color: #FFFFFF;
+        width: auto;
+        padding: 0.5rem 1rem;
     }
+
     .toggle {
         display: none;
     }

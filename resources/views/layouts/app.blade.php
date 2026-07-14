@@ -37,16 +37,16 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
-    <link rel="stylesheet" href="{{ asset('css/main.css?v=2') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/header.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/main.css?v=3') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/header.css?v=3') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/home.css?v=2') }}" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('css/projects.css?v=4') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/footer.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/footer.css?v=3') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/about.css?v=2') }}" type="text/css">
 </head>
 
@@ -56,9 +56,9 @@
         <nav class="nav">
             <div class="toggle"><i class="fas fa-bars"></i></div>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="{{ route('about') }}">About</a></li>
-                <li class="nav-item"><a href="{{ route('projects') }}">Projects</a></li>
-                <li class="nav-item"><a href="{{ route('photos') }}">Certificate</a></li>
+                <li class="nav-item"><a href="{{ route('about') }}" @class(['is-current' => request()->routeIs('about')])>About</a></li>
+                <li class="nav-item"><a href="{{ route('projects') }}" @class(['is-current' => request()->routeIs('projects')])>Projects</a></li>
+                <li class="nav-item"><a href="{{ route('photos') }}" @class(['is-current' => request()->routeIs('photos')])>Certificate</a></li>
             </ul>
         </nav>
     </header>
@@ -66,6 +66,7 @@
     @yield('content')
 
     <footer class="footer-container">
+        <p class="eyebrow footer-eyebrow">$ ./contact.sh</p>
         <div class="footer">
             <div class="footer-column">
                 <a href="/" class="footer-logo">{{ '@' . $user->username }}</a>

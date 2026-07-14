@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="{{ asset('css/home.css?v=2') }}" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('css/projects.css?v=4') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/photos.css?v=1') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/footer.css?v=3') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/about.css?v=2') }}" type="text/css">
 </head>

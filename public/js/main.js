@@ -1,3 +1,11 @@
+function parseKeywordTags(keywordString) {
+    if (!keywordString) {
+        return [];
+    }
+
+    return keywordString.split(",").map((tag) => tag.trim()).filter(Boolean);
+}
+
 const toggle = document.querySelector(".toggle");
 const menu = document.querySelector(".nav-menu");
 const themeToggle = document.getElementById("theme-toggle");
@@ -102,4 +110,146 @@ if (revealElements.length > 0) {
 
         revealElements.forEach((element) => revealObserver.observe(element));
     }
+}
+
+const projectModal = document.getElementById("project-modal");
+
+if (projectModal) {
+    const modalPanel = projectModal.querySelector(".modal-panel");
+    const modalClose = projectModal.querySelector(".modal-close");
+    const modalImage = projectModal.querySelector(".modal-image");
+    const modalTitle = projectModal.querySelector(".modal-title");
+    const modalTags = projectModal.querySelector(".modal-tags");
+    const modalDescription = projectModal.querySelector(".modal-description");
+    const modalLiveLink = projectModal.querySelector(".modal-button-live");
+    const modalGithubLink = projectModal.querySelector(".modal-button-github");
+    const modalCards = document.querySelectorAll('[role="button"][data-modal-title]');
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    let activeCard = null;
+    let isModalOpen = false;
+
+    function getModalImageUrl(imagePath) {
+        if (!imagePath) {
+            return "";
+        }
+
+        if (imagePath.startsWith("http://") || imagePath.startsWith("https://") || imagePath.startsWith("/")) {
+            return imagePath;
+        }
+
+        return `/storage/${imagePath}`;
+    }
+
+    function getFocusableElements(container) {
+        return Array.from(container.querySelectorAll(focusableSelector)).filter(
+            (element) => !element.hasAttribute("disabled") && element.getAttribute("tabindex") !== "-1"
+        );
+    }
+
+    function renderModalTags(tagString) {
+        modalTags.innerHTML = "";
+
+        parseKeywordTags(tagString).forEach((tag) => {
+            const tagElement = document.createElement("span");
+            tagElement.textContent = tag;
+            modalTags.appendChild(tagElement);
+        });
+    }
+
+    function openProjectModal(card) {
+        activeCard = card;
+
+        modalTitle.textContent = card.dataset.modalTitle || "";
+        modalImage.src = getModalImageUrl(card.dataset.modalImage || "");
+        modalImage.alt = card.dataset.modalTitle || "Project preview";
+        modalDescription.textContent = card.dataset.modalDescription || "";
+        renderModalTags(card.dataset.modalTags || "");
+
+        modalLiveLink.href = card.dataset.modalUrl || "#";
+        modalGithubLink.href = card.dataset.modalGithub || "#";
+
+        projectModal.hidden = false;
+        projectModal.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        isModalOpen = true;
+
+        modalClose.focus();
+    }
+
+    function closeProjectModal() {
+        if (!isModalOpen) {
+            return;
+        }
+
+        projectModal.classList.remove("is-open");
+        projectModal.hidden = true;
+        document.body.style.overflow = "";
+        isModalOpen = false;
+
+        if (activeCard) {
+            activeCard.focus();
+            activeCard = null;
+        }
+    }
+
+    function handleModalKeydown(event) {
+        if (!isModalOpen) {
+            return;
+        }
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            closeProjectModal();
+            return;
+        }
+
+        if (event.key !== "Tab") {
+            return;
+        }
+
+        const focusableElements = getFocusableElements(modalPanel);
+
+        if (focusableElements.length === 0) {
+            return;
+        }
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+        }
+    }
+
+    modalCards.forEach((card) => {
+        card.addEventListener("click", (event) => {
+            if (event.target.closest(".project-links")) {
+                return;
+            }
+
+            openProjectModal(card);
+        });
+
+        card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openProjectModal(card);
+            }
+        });
+    });
+
+    modalClose.addEventListener("click", closeProjectModal);
+
+    projectModal.addEventListener("click", (event) => {
+        if (event.target === projectModal) {
+            closeProjectModal();
+        }
+    });
+
+    document.addEventListener("keydown", handleModalKeydown);
 }

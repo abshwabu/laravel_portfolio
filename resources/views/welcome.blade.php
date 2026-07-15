@@ -41,7 +41,14 @@
             </p>
             <div class="project-cards-container">
                 @foreach ($projects as $project)
-                    <article class="card project-card reveal">
+                    <article class="card project-card reveal" role="button" tabindex="0"
+                        aria-label="View details for {{ $project->title }}"
+                        data-modal-title="{{ $project->title }}"
+                        data-modal-image="{{ $project->image }}"
+                        data-modal-description="{{ $project->description }}"
+                        data-modal-tags="{{ $project->keyword }}"
+                        data-modal-url="{{ $project->url }}"
+                        data-modal-github="{{ $project->github_url }}">
                         <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} preview"
                             class="card-preview-img" loading="lazy">
                         <div class="project-card-info">
@@ -54,11 +61,11 @@
                             <p class="project-description">{{ $project->description }}</p>
                             <div class="project-links">
                                 <a href="{{ $project->url }}" aria-label="Visit {{ $project->title }} live site"
-                                    target="_blank" rel="noopener noreferrer">
+                                    target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                                 <a href="{{ $project->github_url }}" aria-label="View {{ $project->title }} on GitHub"
-                                    target="_blank" rel="noopener noreferrer">
+                                    target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
                                     <i class="fa-brands fa-github"></i>
                                 </a>
                             </div>
@@ -71,4 +78,18 @@
             </div>
         </section>
     </main>
+
+    <div class="modal-overlay" id="project-modal" hidden>
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button type="button" class="modal-close" aria-label="Close">&times;</button>
+            <img class="modal-image" src="" alt="">
+            <h3 class="modal-title" id="modal-title"></h3>
+            <div class="modal-tags"></div>
+            <p class="modal-description"></p>
+            <div class="modal-actions">
+                <a href="#" class="modal-button modal-button-live" target="_blank" rel="noopener noreferrer">View Live</a>
+                <a href="#" class="modal-button modal-button-github" target="_blank" rel="noopener noreferrer">View Code</a>
+            </div>
+        </div>
+    </div>
 @endsection

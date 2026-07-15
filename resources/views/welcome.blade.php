@@ -7,7 +7,7 @@
         <section id="home" class="hero">
             <div class="hero-content">
                 <p class="eyebrow">$ whoami</p>
-                <h1 class="hero-title">{{ $user->name }}</h1>
+                <h1 class="hero-title reveal">{{ $user->name }}</h1>
                 <p class="hero-subline">{{ $user->title }}</p>
                 <ul class="hero-socials">
                     <li class="social-link">
@@ -34,14 +34,14 @@
 
         <section class="home-projects" id="select-projects">
             <p class="eyebrow">$ ls ./select-projects</p>
-            <h2>Select Projects</h2>
+            <h2 class="reveal">Select Projects</h2>
             <p class="section-description">
                 Here are some personal projects I have worked on.
                 You can find more on <a class="hyperlink" href="{{ $user->github_url }}">GitHub</a>.
             </p>
             <div class="project-cards-container">
                 @foreach ($projects as $project)
-                    <article class="card project-card">
+                    <article class="card project-card reveal">
                         <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} preview"
                             class="card-preview-img" loading="lazy">
                         <div class="project-card-info">

@@ -1,5 +1,6 @@
 const toggle = document.querySelector(".toggle");
 const menu = document.querySelector(".nav-menu");
+const themeToggle = document.getElementById("theme-toggle");
 
 function toggleMenu() {
     if (menu.classList.contains("active")) {
@@ -12,7 +13,34 @@ function toggleMenu() {
 }
 
 if (toggle && menu) {
+    toggle.setAttribute("role", "button");
+    toggle.setAttribute("tabindex", "0");
+    toggle.setAttribute("aria-label", "Toggle navigation menu");
     toggle.addEventListener("click", toggleMenu, false);
+    toggle.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            toggleMenu();
+        }
+    });
+}
+
+if (themeToggle) {
+    function updateThemeToggleState() {
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+    }
+
+    updateThemeToggleState();
+
+    themeToggle.addEventListener("click", () => {
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        const nextTheme = isDark ? "light" : "dark";
+
+        document.documentElement.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("theme", nextTheme);
+        updateThemeToggleState();
+    });
 }
 
 const projectFilter = document.getElementById("project-filter");
@@ -47,4 +75,31 @@ if (projectFilter) {
             }
         });
     });
+}
+
+const revealElements = document.querySelectorAll(".reveal");
+
+if (revealElements.length > 0) {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+        revealElements.forEach((element) => element.classList.add("is-visible"));
+    } else {
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -5% 0px",
+            }
+        );
+
+        revealElements.forEach((element) => revealObserver.observe(element));
+    }
 }

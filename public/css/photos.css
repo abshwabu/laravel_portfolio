@@ -21,6 +21,12 @@
     text-decoration: none;
 }
 
+.photos-section .photo-card-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
 .photos-section .photo-cards-container .card {
     display: flex;
     flex-direction: column;

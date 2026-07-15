@@ -21,6 +21,11 @@ header {
     color: var(--ink);
     padding: 0.5rem 0;
     transition: color 0.2s ease;
+    min-width: 0;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .header-logo:hover {
@@ -31,6 +36,44 @@ header {
     position: relative;
     display: flex;
     align-items: center;
+    gap: 0.25rem;
+}
+
+#theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background-color: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+#theme-toggle .theme-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+#theme-toggle .theme-icon-sun {
+    display: none;
+}
+
+#theme-toggle .theme-icon-moon {
+    display: block;
+}
+
+html[data-theme="dark"] #theme-toggle .theme-icon-sun {
+    display: block;
+}
+
+html[data-theme="dark"] #theme-toggle .theme-icon-moon {
+    display: none;
 }
 
 .nav-menu {
@@ -138,6 +181,10 @@ header {
         flex-direction: row;
         align-items: center;
         gap: 0.25rem;
+    }
+
+    #theme-toggle {
+        margin-left: 0.25rem;
     }
 
     .nav-item {

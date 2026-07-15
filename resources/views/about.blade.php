@@ -13,7 +13,7 @@
                 </div>
                 <div class="terminal-container">
                     <div class="terminal-header">
-                        <div id="terminal-title">{{ $user->username }}.exe</div>
+                        <div class="terminal-title">{{ $user->username }}.exe</div>
                         <div class="right-side-buttons">
                             <i class="fa-solid fa-window-minimize" aria-hidden="true"></i>
                             <i class="fa-solid fa-window-restore" aria-hidden="true"></i>
@@ -69,9 +69,9 @@
             <p class="eyebrow">$ history --education --experience</p>
             <div class="history-columns">
                 <div id="education" class="education-experience-container">
-                    <h3>Education</h3>
+                    <h3 class="reveal">Education</h3>
                     @foreach ($educations as $education)
-                        <article class="education-experience-card">
+                        <article class="education-experience-card reveal">
                             <h4 class="entry-title">{{ $education->education_degree }}</h4>
                             <p class="entry-meta">{{ $education->education_location }}</p>
                             <h5 class="entry-subheading">Achievements</h5>
@@ -88,10 +88,10 @@
                         </article>
                     @endforeach
                 </div>
-                <div id="experience" class="education-experience-container">
-                    <h3>Experience</h3>
+                <div id="experience" class="education-experience-container experience-column">
+                    <h3 class="reveal">Experience</h3>
                     @foreach ($experiences as $experience)
-                        <article class="education-experience-card">
+                        <article class="education-experience-card reveal">
                             <h4 class="entry-title">{{ $experience->role }}</h4>
                             <p class="entry-meta entry-date">{{ $experience->start_date }} - {{ $experience->end_date }}</p>
                             <p class="entry-meta">
@@ -120,7 +120,7 @@
 
         <section id="tech-stack" class="about-tech">
             <p class="eyebrow">$ ls ./stack</p>
-            <h3>Tech Stack</h3>
+            <h3 class="reveal">Tech Stack</h3>
             <div class="tech-stack-container">
                 @foreach ($techstasks as $item)
                     <a href="{{ $item->url }}" class="tech-chip" target="_blank" rel="noopener noreferrer">
@@ -133,7 +133,7 @@
 
         <section id="all-social-media" class="about-contact">
             <p class="eyebrow">$ contact --list</p>
-            <h3>Contact</h3>
+            <h3 class="reveal">Contact</h3>
             <div class="contact-grid">
                 <a href="{{ $user->linkedin_url }}" class="contact-link" target="_blank" rel="noopener noreferrer">
                     <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>

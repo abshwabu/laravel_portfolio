@@ -1,3 +1,9 @@
+.project-section .project-links a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
 .project-section .projects {
     padding-top: clamp(2rem, 6vw, 4rem);
     padding-bottom: var(--section-padding);
@@ -13,6 +19,11 @@
     text-align: left;
     margin-left: 0;
     margin-right: 0;
+}
+
+.project-section .filter-pill:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
 
 .project-section .project-filter {

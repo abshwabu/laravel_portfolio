@@ -24,7 +24,7 @@
     <main class="main-container project-section">
         <section class="projects">
             <p class="eyebrow">$ ls ~/projects --all</p>
-            <h2>Projects</h2>
+            <h2 class="reveal">Projects</h2>
             <p class="section-description">
                 See <a class="hyperlink" href="{{ $user->github_url }}">GitHub</a> profile for more details.
             </p>
@@ -45,7 +45,7 @@
                             ->filter()
                             ->implode(',');
                     @endphp
-                    <article class="card project-card" data-tags="{{ $projectTags }}">
+                    <article class="card project-card reveal" data-tags="{{ $projectTags }}">
                         <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} preview"
                             class="card-preview-img" loading="lazy">
                         <div class="project-card-info">

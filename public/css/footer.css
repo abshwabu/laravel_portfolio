@@ -74,6 +74,7 @@
     color: var(--muted);
     letter-spacing: 0.01em;
     transition: color 0.2s ease;
+    border-radius: 2px;
 }
 
 .footer-button:hover {

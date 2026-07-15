@@ -13,6 +13,14 @@
 
     <meta charset="UTF-8">
 
+    <script>
+        (function () {
+            var stored = localStorage.getItem('theme');
+            var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
     <meta property="og:title" content="{{ $user->name }} — {{ $user->title }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://abshewabu.dev" />
@@ -41,8 +49,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
-    <link rel="stylesheet" href="{{ asset('css/main.css?v=3') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/header.css?v=3') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/main.css?v=4') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/header.css?v=4') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/home.css?v=2') }}" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('css/projects.css?v=4') }}" type="text/css">
@@ -61,6 +69,17 @@
                 <li class="nav-item"><a href="{{ route('projects') }}" @class(['is-current' => request()->routeIs('projects')])>Projects</a></li>
                 <li class="nav-item"><a href="{{ route('photos') }}" @class(['is-current' => request()->routeIs('photos')])>Certificate</a></li>
             </ul>
+            <button type="button" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+                <svg class="theme-icon theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </svg>
+                <svg class="theme-icon theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </nav>
     </header>
 

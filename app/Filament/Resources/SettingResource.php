@@ -36,8 +36,12 @@ class SettingResource extends Resource
                 Forms\Components\TextInput::make('instagram_url')->url()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('hero_gif')
-                ->image()
-                ->columnSpan(2),
+                    ->label('Hero Portrait Image')
+                    ->image()
+                    ->disk('public')
+                    ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/avif', 'image/gif'])
+                    ->helperText('Upload a portrait image. It will automatically generate responsive AVIF & WebP formats (400px and 700px) and update site favicons.')
+                    ->columnSpan(2),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->maxLength(255),

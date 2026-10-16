@@ -48,15 +48,24 @@
 
     @if (request()->routeIs('index') && $user && $user->hero_gif)
         @php
-            $heroBase = pathinfo($user->hero_gif, PATHINFO_FILENAME);
-            $heroDir = file_exists(public_path("storage/{$heroBase}-400.avif")) ? 'storage' : (file_exists(public_path("img/{$heroBase}-400.avif")) ? 'img' : null);
+            $cleanHero = ltrim($user->hero_gif, '/');
+            $heroSubdir = dirname($cleanHero);
+            $heroBase = pathinfo($cleanHero, PATHINFO_FILENAME);
+            $heroPrefix = ($heroSubdir === '.' || $heroSubdir === '') ? 'storage' : "storage/{$heroSubdir}";
+            if (!file_exists(public_path("{$heroPrefix}/{$heroBase}-400.avif")) && file_exists(public_path("img/{$heroBase}-400.avif"))) {
+                $heroPrefix = 'img';
+            }
         @endphp
-        @if ($heroDir && file_exists(public_path("{$heroDir}/{$heroBase}-700.avif")))
+        @if (file_exists(public_path("{$heroPrefix}/{$heroBase}-400.avif")) && file_exists(public_path("{$heroPrefix}/{$heroBase}-700.avif")))
             <link rel="preload" as="image" type="image/avif" fetchpriority="high"
-                  imagesrcset="{{ asset("{$heroDir}/{$heroBase}-400.avif") }} 400w, {{ asset("{$heroDir}/{$heroBase}-700.avif") }} 700w"
+                  imagesrcset="{{ asset("{$heroPrefix}/{$heroBase}-400.avif") }} 400w, {{ asset("{$heroPrefix}/{$heroBase}-700.avif") }} 700w"
                   imagesizes="(max-width: 640px) 352px, 450px">
-        @elseif (file_exists(public_path("storage/{$user->hero_gif}")))
-            <link rel="preload" as="image" href="{{ asset("storage/{$user->hero_gif}") }}" fetchpriority="high">
+        @elseif (file_exists(public_path("{$heroPrefix}/{$heroBase}-400.webp")) && file_exists(public_path("{$heroPrefix}/{$heroBase}-700.webp")))
+            <link rel="preload" as="image" type="image/webp" fetchpriority="high"
+                  imagesrcset="{{ asset("{$heroPrefix}/{$heroBase}-400.webp") }} 400w, {{ asset("{$heroPrefix}/{$heroBase}-700.webp") }} 700w"
+                  imagesizes="(max-width: 640px) 352px, 450px">
+        @elseif (file_exists(public_path("storage/{$cleanHero}")))
+            <link rel="preload" as="image" href="{{ asset("storage/{$cleanHero}") }}" fetchpriority="high">
         @endif
     @endif
 

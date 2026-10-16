@@ -6,7 +6,7 @@
     <main class="main-container photos-section">
         <section class="photos">
             <p class="eyebrow">$ cat certificates.log</p>
-            <h2 class="reveal">Certificates</h2>
+            <h1 class="reveal page-heading">Certificates</h1>
             <div class="photo-cards-container">
                 @foreach ($photos as $photo)
                     @if (! empty($photo->url))
@@ -25,7 +25,7 @@
                                     decoding="async"
                                 />
                                 <div class="photo-card-info">
-                                    <h3 class="photo-title">{{ $photo->title }}</h3>
+                                    <h2 class="photo-title">{{ $photo->title }}</h2>
                                 </div>
                             </article>
                         </a>
@@ -43,7 +43,7 @@
                                 decoding="async"
                             />
                             <div class="photo-card-info">
-                                <h3 class="photo-title">{{ $photo->title }}</h3>
+                                <h2 class="photo-title">{{ $photo->title }}</h2>
                             </div>
                         </article>
                     @endif

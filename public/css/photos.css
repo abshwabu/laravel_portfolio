@@ -3,7 +3,9 @@
     padding-bottom: var(--section-padding);
 }
 
+.photos-section .photos h1,
 .photos-section .photos h2 {
+    font-size: var(--text-h2);
     margin-top: 0.75rem;
     text-align: left;
 }

@@ -24,16 +24,16 @@
     <main class="main-container project-section">
         <section class="projects">
             <p class="eyebrow">$ ls ~/projects --all</p>
-            <h2 class="reveal">Projects</h2>
+            <h1 class="reveal page-heading">Projects</h1>
             <p class="section-description">
                 See <a class="hyperlink" href="{{ $user->github_url }}">GitHub</a> profile for more details.
             </p>
 
-            <div class="project-filter" id="project-filter">
-                <button type="button" class="filter-pill is-active" data-tag="all">All</button>
+            <div class="project-filter" id="project-filter" role="toolbar" aria-label="Filter projects by category">
+                <button type="button" class="filter-pill is-active" data-tag="all" aria-pressed="true">All</button>
                 @foreach ($uniqueKeywords as $keyword)
                     <button type="button" class="filter-pill"
-                        data-tag="{{ strtolower($keyword) }}">{{ $keyword }}</button>
+                        data-tag="{{ strtolower($keyword) }}" aria-pressed="false">{{ $keyword }}</button>
                 @endforeach
             </div>
 
@@ -66,7 +66,7 @@
                             decoding="async"
                         />
                         <div class="project-card-info">
-                            <h3 class="project-title">{{ $project->title }}</h3>
+                            <h2 class="project-title">{{ $project->title }}</h2>
                             <div class="project-skills">
                                 @foreach (explode(',', $project->keyword) as $keyword)
                                     <span>{{ trim($keyword) }}</span>

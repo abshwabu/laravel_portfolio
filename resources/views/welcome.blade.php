@@ -21,7 +21,7 @@
                         </a>
                     </li>
                     <li class="social-link">
-                        <a href="{{ $user->instagram_url }}" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <a href="{{ $user->instagram_url }}" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
                             <x-app-icon name="telegram" />
                         </a>
                     </li>

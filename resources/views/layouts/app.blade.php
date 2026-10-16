@@ -102,7 +102,7 @@
     <header class="header">
         <a href="/" class="header-logo">{{ '@' . $user->username }}</a>
         <nav class="nav">
-            <div class="toggle"><x-app-icon name="bars" width="1.5rem" height="1.5rem" /></div>
+            <button type="button" class="toggle" aria-label="Toggle navigation menu" aria-expanded="false"><x-app-icon name="bars" width="1.5rem" height="1.5rem" /></button>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="{{ route('about') }}" @class(['is-current' => request()->routeIs('about')])>About</a></li>
                 <li class="nav-item"><a href="{{ route('projects') }}" @class(['is-current' => request()->routeIs('projects')])>Projects</a></li>
@@ -132,20 +132,22 @@
                 <div class="socials">
                     <ul>
                         <li class="social-link">
-                            <a href="{{ $user->linkedin_url }}" aria-label="LinkedIn" target="_blank">
+                            <a href="{{ $user->linkedin_url }}" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                                 <x-app-icon name="linkedin" />
                             </a>
                         </li>
                         <li class="social-link">
-                            <a href="{{ $user->github_url }}" aria-label="GitHub" target="_blank">
+                            <a href="{{ $user->github_url }}" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
                                 <x-app-icon name="github" />
                             </a>
                         </li>
-                        <li class="social-link">
-                            <a href="{{ $user->insta_url }}" aria-label="Instagram" target="_blank">
-                                <x-app-icon name="instagram" />
-                            </a>
-                        </li>
+                        @if ($user->instagram_url || $user->insta_url)
+                            <li class="social-link">
+                                <a href="{{ $user->instagram_url ?: $user->insta_url }}" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
+                                    <x-app-icon name="telegram" />
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <span class="copyright"><x-app-icon name="copyright" width="0.875rem" height="0.875rem" /> {{ $user->name }} -
@@ -153,22 +155,22 @@
             </div>
             <div class="footer-column">
                 <a href="{{ route('about') }}" class="footer-button">
-                    <img src="{{ asset('img/smile.svg') }}" alt="Smile Icon" width="18" height="18" loading="lazy" decoding="async">
+                    <img src="{{ asset('img/smile.svg') }}" alt="" aria-hidden="true" width="18" height="18" loading="lazy" decoding="async">
                     About
                 </a>
                 <a href="{{ route('projects') }}" class="footer-button">
-                    <img src="{{ asset('img/coding.svg') }}" alt="Code Icon" width="18" height="18" loading="lazy" decoding="async">
+                    <img src="{{ asset('img/coding.svg') }}" alt="" aria-hidden="true" width="18" height="18" loading="lazy" decoding="async">
                     Projects
                 </a>
 
             </div>
             <div class="footer-column">
                 <a href="{{ route('photos') }}" class="footer-button">
-                    <img src="{{ asset('img/camera.svg') }}" alt="Camera Icon" width="18" height="18" loading="lazy" decoding="async">
+                    <img src="{{ asset('img/camera.svg') }}" alt="" aria-hidden="true" width="18" height="18" loading="lazy" decoding="async">
                     Certificates
                 </a>
                 <a href="mailto:{{ $user->email }}" class="footer-button">
-                    <img src="{{ asset('img/email.svg') }}" alt="Email Icon" width="18" height="18" loading="lazy" decoding="async">
+                    <img src="{{ asset('img/email.svg') }}" alt="" aria-hidden="true" width="18" height="18" loading="lazy" decoding="async">
                     Contact
                 </a>
             </div>

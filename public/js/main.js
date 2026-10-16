@@ -14,19 +14,19 @@ const barsIcon = `<svg class="icon" viewBox="0 0 24 24" width="1.25rem" height="
 const timesIcon = `<svg class="icon" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 
 function toggleMenu() {
-    if (menu.classList.contains("active")) {
+    const isExpanded = menu.classList.contains("active");
+    if (isExpanded) {
         menu.classList.remove("active");
         toggle.innerHTML = barsIcon;
+        toggle.setAttribute("aria-expanded", "false");
     } else {
         menu.classList.add("active");
         toggle.innerHTML = timesIcon;
+        toggle.setAttribute("aria-expanded", "true");
     }
 }
 
 if (toggle && menu) {
-    toggle.setAttribute("role", "button");
-    toggle.setAttribute("tabindex", "0");
-    toggle.setAttribute("aria-label", "Toggle navigation menu");
     toggle.addEventListener("click", toggleMenu, false);
     toggle.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -66,8 +66,12 @@ if (projectFilter) {
             return;
         }
 
-        filterPills.forEach((filterPill) => filterPill.classList.remove("is-active"));
+        filterPills.forEach((filterPill) => {
+            filterPill.classList.remove("is-active");
+            filterPill.setAttribute("aria-pressed", "false");
+        });
         pill.classList.add("is-active");
+        pill.setAttribute("aria-pressed", "true");
 
         const selectedTag = pill.dataset.tag;
 

@@ -6,6 +6,7 @@
     <main class="main-container about-section">
         <section id="profile" class="about-profile">
             <p class="eyebrow">$ cat about.me</p>
+            <h1 class="reveal page-heading">About</h1>
             <div class="profile-container">
                 <div class="me-icon-container">
                     <x-picture
@@ -79,12 +80,12 @@
             <p class="eyebrow">$ history --education --experience</p>
             <div class="history-columns">
                 <div id="education" class="education-experience-container">
-                    <h3 class="reveal">Education</h3>
+                    <h2 class="reveal">Education</h2>
                     @foreach ($educations as $education)
                         <article class="education-experience-card reveal">
-                            <h4 class="entry-title">{{ $education->education_degree }}</h4>
+                            <h3 class="entry-title">{{ $education->education_degree }}</h3>
                             <p class="entry-meta">{{ $education->education_location }}</p>
-                            <h5 class="entry-subheading">Achievements</h5>
+                            <h4 class="entry-subheading">Achievements</h4>
                             <ul class="entry-list">
                                 @php
                                     $achievements = explode(',', $education->achievements);
@@ -99,10 +100,10 @@
                     @endforeach
                 </div>
                 <div id="experience" class="education-experience-container experience-column">
-                    <h3 class="reveal">Experience</h3>
+                    <h2 class="reveal">Experience</h2>
                     @foreach ($experiences as $experience)
                         <article class="education-experience-card reveal">
-                            <h4 class="entry-title">{{ $experience->role }}</h4>
+                            <h3 class="entry-title">{{ $experience->role }}</h3>
                             <p class="entry-meta entry-date">{{ $experience->start_date }} - {{ $experience->end_date }}</p>
                             <p class="entry-meta">
                                 <a class="entry-link" href="{{ $experience->company_url }}">{{ $experience->company }}</a>
@@ -110,7 +111,7 @@
                                 {{ $experience->job_type }}
                             </p>
                             @foreach ($experience->tasks as $taskGroup)
-                                <h5 class="entry-subheading">{{ $taskGroup->title }}</h5>
+                                <h4 class="entry-subheading">{{ $taskGroup->title }}</h4>
                                 @php
                                     $tasks = explode('.', $taskGroup->tasks);
                                 @endphp
@@ -130,7 +131,7 @@
 
         <section id="tech-stack" class="about-tech">
             <p class="eyebrow">$ ls ./stack</p>
-            <h3 class="reveal">Tech Stack</h3>
+            <h2 class="reveal">Tech Stack</h2>
             <div class="tech-stack-container">
                 @foreach ($techstasks as $item)
                     <a href="{{ $item->url }}" class="tech-chip" target="_blank" rel="noopener noreferrer">
@@ -143,7 +144,7 @@
 
         <section id="all-social-media" class="about-contact">
             <p class="eyebrow">$ contact --list</p>
-            <h3 class="reveal">Contact</h3>
+            <h2 class="reveal">Contact</h2>
             <div class="contact-grid">
                 <a href="{{ $user->linkedin_url }}" class="contact-link" target="_blank" rel="noopener noreferrer">
                     <x-app-icon name="linkedin" width="1.25rem" height="1.25rem" />

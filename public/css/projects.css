@@ -9,7 +9,9 @@
     padding-bottom: var(--section-padding);
 }
 
+.project-section .projects h1,
 .project-section .projects h2 {
+    font-size: var(--text-h2);
     margin-top: 0.75rem;
     text-align: left;
 }

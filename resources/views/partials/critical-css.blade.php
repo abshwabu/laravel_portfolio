@@ -372,6 +372,8 @@ html[data-theme="dark"] #theme-toggle .theme-icon-moon {
     padding: 0.5rem;
     cursor: pointer;
     color: var(--ink);
+    background: transparent;
+    border: none;
 }
 
 .toggle i,

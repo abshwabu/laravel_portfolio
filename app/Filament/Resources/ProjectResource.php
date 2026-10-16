@@ -29,8 +29,21 @@ class ProjectResource extends Resource
                     ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
-                    ->columnSpanFull()
-                    ->image(),
+                    ->label('Primary Cover Image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('projects')
+                    ->helperText('Main cover thumbnail displayed on project cards.')
+                    ->columnSpanFull(),
+                Forms\Components\FileUpload::make('images')
+                    ->label('Project Gallery (Multiple Pictures)')
+                    ->multiple()
+                    ->reorderable()
+                    ->image()
+                    ->disk('public')
+                    ->directory('projects')
+                    ->helperText('Upload multiple pictures/screenshots for the project detail view. All images are automatically converted to responsive AVIF and WebP.')
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('url')
                     ->url()
                     ->maxLength(255),

@@ -125,6 +125,13 @@ if (projectModal) {
     const modalPanel = projectModal.querySelector(".modal-panel");
     const modalClose = projectModal.querySelector(".modal-close");
     const modalImage = projectModal.querySelector(".modal-image");
+    const modalSourceAvif = projectModal.querySelector(".modal-source-avif");
+    const modalSourceWebp = projectModal.querySelector(".modal-source-webp");
+    const galleryViewport = projectModal.querySelector(".modal-gallery-viewport");
+    const galleryPrev = projectModal.querySelector(".gallery-prev");
+    const galleryNext = projectModal.querySelector(".gallery-next");
+    const galleryCounter = projectModal.querySelector(".gallery-counter");
+    const modalThumbnails = projectModal.querySelector(".modal-thumbnails");
     const modalTitle = projectModal.querySelector(".modal-title");
     const modalTags = projectModal.querySelector(".modal-tags");
     const modalDescription = projectModal.querySelector(".modal-description");
@@ -135,6 +142,8 @@ if (projectModal) {
 
     let activeCard = null;
     let isModalOpen = false;
+    let galleryImages = [];
+    let currentGalleryIndex = 0;
 
     function getModalImageUrl(imagePath) {
         if (!imagePath) {
@@ -164,18 +173,111 @@ if (projectModal) {
         });
     }
 
+    function setGalleryImage(index) {
+        if (!galleryImages.length) {
+            return;
+        }
+
+        currentGalleryIndex = (index + galleryImages.length) % galleryImages.length;
+        const img = galleryImages[currentGalleryIndex];
+
+        if (modalSourceAvif) {
+            modalSourceAvif.srcset = img.avif_srcset || "";
+        }
+        if (modalSourceWebp) {
+            modalSourceWebp.srcset = img.webp_srcset || "";
+        }
+
+        modalImage.src = img.src || "";
+        modalImage.alt = img.alt || modalTitle.textContent || "Project preview";
+
+        if (galleryCounter) {
+            galleryCounter.textContent = `${currentGalleryIndex + 1} / ${galleryImages.length}`;
+        }
+
+        if (modalThumbnails) {
+            const thumbs = modalThumbnails.querySelectorAll(".modal-thumb");
+            thumbs.forEach((thumb, i) => {
+                const isActive = i === currentGalleryIndex;
+                thumb.classList.toggle("is-active", isActive);
+                thumb.setAttribute("aria-selected", isActive ? "true" : "false");
+                if (isActive) {
+                    thumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+                }
+            });
+        }
+    }
+
     function openProjectModal(card) {
         activeCard = card;
 
-        const cardImg = card.querySelector("picture img, img");
         modalTitle.textContent = card.dataset.modalTitle || "";
-        modalImage.src = cardImg && cardImg.currentSrc ? cardImg.currentSrc : getModalImageUrl(card.dataset.modalImage || "");
-        modalImage.alt = card.dataset.modalTitle || "Project preview";
         modalDescription.textContent = card.dataset.modalDescription || "";
         renderModalTags(card.dataset.modalTags || "");
 
         modalLiveLink.href = card.dataset.modalUrl || "#";
         modalGithubLink.href = card.dataset.modalGithub || "#";
+
+        // Parse gallery images
+        galleryImages = [];
+        try {
+            if (card.dataset.modalImages) {
+                galleryImages = JSON.parse(card.dataset.modalImages);
+            }
+        } catch (e) {
+            galleryImages = [];
+        }
+
+        if (!galleryImages.length) {
+            const cardImg = card.querySelector("picture img, img");
+            const fallbackSrc = cardImg && cardImg.currentSrc ? cardImg.currentSrc : getModalImageUrl(card.dataset.modalImage || "");
+            if (fallbackSrc) {
+                galleryImages = [{
+                    src: fallbackSrc,
+                    thumb: fallbackSrc,
+                    avif_srcset: "",
+                    webp_srcset: "",
+                    alt: card.dataset.modalTitle || "Project preview"
+                }];
+            }
+        }
+
+        // Render thumbnails
+        if (modalThumbnails) {
+            modalThumbnails.innerHTML = "";
+            if (galleryImages.length > 1) {
+                galleryImages.forEach((img, i) => {
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "modal-thumb" + (i === 0 ? " is-active" : "");
+                    btn.setAttribute("role", "tab");
+                    btn.setAttribute("aria-label", `View screenshot ${i + 1}`);
+                    btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+
+                    const thumbImg = document.createElement("img");
+                    thumbImg.src = img.thumb || img.src;
+                    thumbImg.alt = img.alt || "";
+                    thumbImg.width = 72;
+                    thumbImg.height = 42;
+                    thumbImg.loading = "lazy";
+                    thumbImg.decoding = "async";
+
+                    btn.appendChild(thumbImg);
+                    btn.addEventListener("click", () => setGalleryImage(i));
+                    modalThumbnails.appendChild(btn);
+                });
+                modalThumbnails.hidden = false;
+            } else {
+                modalThumbnails.hidden = true;
+            }
+        }
+
+        const isMulti = galleryImages.length > 1;
+        if (galleryPrev) galleryPrev.hidden = !isMulti;
+        if (galleryNext) galleryNext.hidden = !isMulti;
+        if (galleryCounter) galleryCounter.hidden = !isMulti;
+
+        setGalleryImage(0);
 
         projectModal.hidden = false;
         projectModal.classList.add("is-open");
@@ -212,6 +314,18 @@ if (projectModal) {
             return;
         }
 
+        if (event.key === "ArrowLeft" && galleryImages.length > 1) {
+            event.preventDefault();
+            setGalleryImage(currentGalleryIndex - 1);
+            return;
+        }
+
+        if (event.key === "ArrowRight" && galleryImages.length > 1) {
+            event.preventDefault();
+            setGalleryImage(currentGalleryIndex + 1);
+            return;
+        }
+
         if (event.key !== "Tab") {
             return;
         }
@@ -232,6 +346,35 @@ if (projectModal) {
             event.preventDefault();
             firstElement.focus();
         }
+    }
+
+    if (galleryPrev) {
+        galleryPrev.addEventListener("click", () => setGalleryImage(currentGalleryIndex - 1));
+    }
+    if (galleryNext) {
+        galleryNext.addEventListener("click", () => setGalleryImage(currentGalleryIndex + 1));
+    }
+
+    if (galleryViewport) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        galleryViewport.addEventListener("touchstart", (e) => {
+            if (e.changedTouches && e.changedTouches[0]) {
+                touchStartX = e.changedTouches[0].screenX;
+            }
+        }, { passive: true });
+
+        galleryViewport.addEventListener("touchend", (e) => {
+            if (e.changedTouches && e.changedTouches[0]) {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 45) {
+                    setGalleryImage(currentGalleryIndex + 1);
+                } else if (touchEndX - touchStartX > 45) {
+                    setGalleryImage(currentGalleryIndex - 1);
+                }
+            }
+        }, { passive: true });
     }
 
     modalCards.forEach((card) => {

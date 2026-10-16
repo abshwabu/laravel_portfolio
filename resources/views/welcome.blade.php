@@ -55,6 +55,7 @@
                         aria-label="View details for {{ $project->title }}"
                         data-modal-title="{{ $project->title }}"
                         data-modal-image="{{ $project->image }}"
+                        data-modal-images="{{ json_encode($project->all_images_data) }}"
                         data-modal-description="{{ $project->description }}"
                         data-modal-tags="{{ $project->keyword }}"
                         data-modal-url="{{ $project->url }}"
@@ -101,7 +102,23 @@
     <div class="modal-overlay" id="project-modal" hidden>
         <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <button type="button" class="modal-close" aria-label="Close">&times;</button>
-            <img class="modal-image" src="" alt="Project preview" width="800" height="450" decoding="async">
+            <div class="modal-gallery" id="modal-gallery">
+                <div class="modal-gallery-viewport">
+                    <picture class="modal-picture">
+                        <source class="modal-source-avif" type="image/avif" srcset="">
+                        <source class="modal-source-webp" type="image/webp" srcset="">
+                        <img class="modal-image" src="" alt="Project preview" width="800" height="450" loading="lazy" decoding="async">
+                    </picture>
+                    <button type="button" class="gallery-nav gallery-prev" aria-label="Previous image" hidden>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button type="button" class="gallery-nav gallery-next" aria-label="Next image" hidden>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                    <span class="gallery-counter" hidden></span>
+                </div>
+                <div class="modal-thumbnails" role="tablist" aria-label="Project images" hidden></div>
+            </div>
             <h3 class="modal-title" id="modal-title"></h3>
             <div class="modal-tags"></div>
             <p class="modal-description"></p>

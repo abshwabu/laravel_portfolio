@@ -28,7 +28,17 @@
                 </ul>
             </div>
             <div class="hero-image-card">
-                <img src="{{ asset('storage/' . $user->hero_gif) }}" alt="{{ $user->name }}">
+                <x-picture
+                    :src="'storage/' . $user->hero_gif"
+                    :alt="$user->name"
+                    width="700"
+                    height="700"
+                    :widths="[400, 700]"
+                    sizes="(max-width: 640px) 352px, 450px"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                />
             </div>
         </section>
 
@@ -49,8 +59,17 @@
                         data-modal-tags="{{ $project->keyword }}"
                         data-modal-url="{{ $project->url }}"
                         data-modal-github="{{ $project->github_url }}">
-                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }} preview"
-                            class="card-preview-img" loading="lazy">
+                        <x-picture
+                            :src="'storage/' . $project->image"
+                            :alt="$project->title . ' preview'"
+                            class="card-preview-img"
+                            width="400"
+                            height="225"
+                            :widths="[400, 800, 1200]"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                            loading="lazy"
+                            decoding="async"
+                        />
                         <div class="project-card-info">
                             <h3 class="project-title">{{ $project->title }}</h3>
                             <div class="project-skills">
@@ -82,7 +101,7 @@
     <div class="modal-overlay" id="project-modal" hidden>
         <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <button type="button" class="modal-close" aria-label="Close">&times;</button>
-            <img class="modal-image" src="" alt="">
+            <img class="modal-image" src="" alt="Project preview" width="800" height="450" decoding="async">
             <h3 class="modal-title" id="modal-title"></h3>
             <div class="modal-tags"></div>
             <p class="modal-description"></p>

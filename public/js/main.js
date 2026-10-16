@@ -160,8 +160,9 @@ if (projectModal) {
     function openProjectModal(card) {
         activeCard = card;
 
+        const cardImg = card.querySelector("picture img, img");
         modalTitle.textContent = card.dataset.modalTitle || "";
-        modalImage.src = getModalImageUrl(card.dataset.modalImage || "");
+        modalImage.src = cardImg && cardImg.currentSrc ? cardImg.currentSrc : getModalImageUrl(card.dataset.modalImage || "");
         modalImage.alt = card.dataset.modalTitle || "Project preview";
         modalDescription.textContent = card.dataset.modalDescription || "";
         renderModalTags(card.dataset.modalTags || "");

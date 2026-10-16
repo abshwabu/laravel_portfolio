@@ -8,8 +8,18 @@
             <p class="eyebrow">$ cat about.me</p>
             <div class="profile-container">
                 <div class="me-icon-container">
-                    <img class="me-icon" src="{{ asset('storage/' . $user->hero_gif) }}" alt="{{ $user->name }}"
-                        title="That is me" loading="lazy">
+                    <x-picture
+                        :src="'storage/' . $user->hero_gif"
+                        :alt="$user->name"
+                        class="me-icon"
+                        width="700"
+                        height="700"
+                        :widths="[400, 700]"
+                        sizes="(max-width: 640px) 200px, 256px"
+                        loading="lazy"
+                        decoding="async"
+                        title="That is me"
+                    />
                 </div>
                 <div class="terminal-container">
                     <div class="terminal-header">
@@ -124,7 +134,7 @@
             <div class="tech-stack-container">
                 @foreach ($techstasks as $item)
                     <a href="{{ $item->url }}" class="tech-chip" target="_blank" rel="noopener noreferrer">
-                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" loading="lazy">
+                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" width="22" height="22" loading="lazy" decoding="async">
                         <span>{{ $item->name }}</span>
                     </a>
                 @endforeach

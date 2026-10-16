@@ -47,6 +47,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
+    @if (request()->routeIs('index') && $user && $user->hero_gif)
+        @php
+            $heroBase = pathinfo($user->hero_gif, PATHINFO_FILENAME);
+            $heroAvifMobile = file_exists(public_path("storage/{$heroBase}-400.avif")) ? asset("storage/{$heroBase}-400.avif") : (file_exists(public_path("img/{$heroBase}-400.avif")) ? asset("img/{$heroBase}-400.avif") : null);
+            $heroAvifDesktop = file_exists(public_path("storage/{$heroBase}-700.avif")) ? asset("storage/{$heroBase}-700.avif") : (file_exists(public_path("img/{$heroBase}-700.avif")) ? asset("img/{$heroBase}-700.avif") : null);
+        @endphp
+        @if ($heroAvifMobile)
+            <link rel="preload" as="image" href="{{ $heroAvifMobile }}" type="image/avif" media="(max-width: 640px)" fetchpriority="high">
+        @endif
+        @if ($heroAvifDesktop)
+            <link rel="preload" as="image" href="{{ $heroAvifDesktop }}" type="image/avif" media="(min-width: 641px)" fetchpriority="high">
+        @endif
+    @endif
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
     <link rel="stylesheet" href="{{ asset('css/main.css?v=4') }}" type="text/css">
@@ -114,22 +128,22 @@
             </div>
             <div class="footer-column">
                 <a href="{{ route('about') }}" class="footer-button">
-                    <img src="{{ asset('img/smile.svg') }}" alt="Smile Icon" loading="lazy">
+                    <img src="{{ asset('img/smile.svg') }}" alt="Smile Icon" width="18" height="18" loading="lazy" decoding="async">
                     About
                 </a>
                 <a href="{{ route('projects') }}" class="footer-button">
-                    <img src="{{ asset('img/coding.svg') }}" alt="Code Icon" loading="lazy">
+                    <img src="{{ asset('img/coding.svg') }}" alt="Code Icon" width="18" height="18" loading="lazy" decoding="async">
                     Projects
                 </a>
 
             </div>
             <div class="footer-column">
                 <a href="{{ route('photos') }}" class="footer-button">
-                    <img src="{{ asset('img/camera.svg') }}" alt="Camera Icon" loading="lazy">
+                    <img src="{{ asset('img/camera.svg') }}" alt="Camera Icon" width="18" height="18" loading="lazy" decoding="async">
                     Certificates
                 </a>
                 <a href="mailto:{{ $user->email }}" class="footer-button">
-                    <img src="{{ asset('img/email.svg') }}" alt="Email Icon" loading="lazy">
+                    <img src="{{ asset('img/email.svg') }}" alt="Email Icon" width="18" height="18" loading="lazy" decoding="async">
                     Contact
                 </a>
             </div>

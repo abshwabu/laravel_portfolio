@@ -49,14 +49,14 @@
     @if (request()->routeIs('index') && $user && $user->hero_gif)
         @php
             $heroBase = pathinfo($user->hero_gif, PATHINFO_FILENAME);
-            $heroAvifMobile = file_exists(public_path("storage/{$heroBase}-400.avif")) ? asset("storage/{$heroBase}-400.avif") : (file_exists(public_path("img/{$heroBase}-400.avif")) ? asset("img/{$heroBase}-400.avif") : null);
-            $heroAvifDesktop = file_exists(public_path("storage/{$heroBase}-700.avif")) ? asset("storage/{$heroBase}-700.avif") : (file_exists(public_path("img/{$heroBase}-700.avif")) ? asset("img/{$heroBase}-700.avif") : null);
+            $heroDir = file_exists(public_path("storage/{$heroBase}-400.avif")) ? 'storage' : (file_exists(public_path("img/{$heroBase}-400.avif")) ? 'img' : null);
         @endphp
-        @if ($heroAvifMobile)
-            <link rel="preload" as="image" href="{{ $heroAvifMobile }}" type="image/avif" media="(max-width: 640px)" fetchpriority="high">
-        @endif
-        @if ($heroAvifDesktop)
-            <link rel="preload" as="image" href="{{ $heroAvifDesktop }}" type="image/avif" media="(min-width: 641px)" fetchpriority="high">
+        @if ($heroDir && file_exists(public_path("{$heroDir}/{$heroBase}-700.avif")))
+            <link rel="preload" as="image" type="image/avif" fetchpriority="high"
+                  imagesrcset="{{ asset("{$heroDir}/{$heroBase}-400.avif") }} 400w, {{ asset("{$heroDir}/{$heroBase}-700.avif") }} 700w"
+                  imagesizes="(max-width: 640px) 352px, 450px">
+        @elseif (file_exists(public_path("storage/{$user->hero_gif}")))
+            <link rel="preload" as="image" href="{{ asset("storage/{$user->hero_gif}") }}" fetchpriority="high">
         @endif
     @endif
 

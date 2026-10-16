@@ -7,7 +7,7 @@
         <section id="home" class="hero">
             <div class="hero-content">
                 <p class="eyebrow">$ whoami</p>
-                <h1 class="hero-title reveal">{{ $user->name }}</h1>
+                <h1 class="hero-title">{{ $user->name }}</h1>
                 <p class="hero-subline">{{ $user->title }}</p>
                 <ul class="hero-socials">
                     <li class="social-link">
@@ -37,7 +37,7 @@
                     sizes="(max-width: 640px) 352px, 450px"
                     loading="eager"
                     fetchpriority="high"
-                    decoding="async"
+                    decoding="sync"
                 />
             </div>
         </section>

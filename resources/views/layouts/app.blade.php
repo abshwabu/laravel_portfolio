@@ -64,36 +64,36 @@
         @include('partials.critical-css')
     </style>
 
-    <link rel="stylesheet" href="{{ asset('css/footer.css?v=4') }}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{ asset('css/footer.css?v=4') }}"></noscript>
+    <link rel="stylesheet" href="{{ hashed_asset('css/footer.css') }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ hashed_asset('css/footer.css') }}"></noscript>
 
     @if (request()->routeIs('index'))
-        <link rel="stylesheet" href="{{ asset('css/home.css?v=3') }}" media="print" onload="this.media='all'">
-        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/home.css') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}" media="print" onload="this.media='all'">
         <noscript>
-            <link rel="stylesheet" href="{{ asset('css/home.css?v=3') }}">
-            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/home.css') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}">
         </noscript>
     @elseif (request()->routeIs('projects'))
-        <link rel="stylesheet" href="{{ asset('css/projects.css?v=5') }}" media="print" onload="this.media='all'">
-        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/projects.css') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}" media="print" onload="this.media='all'">
         <noscript>
-            <link rel="stylesheet" href="{{ asset('css/projects.css?v=5') }}">
-            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/projects.css') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}">
         </noscript>
     @elseif (request()->routeIs('about'))
-        <link rel="stylesheet" href="{{ asset('css/about.css?v=3') }}" media="print" onload="this.media='all'">
-        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/about.css') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}" media="print" onload="this.media='all'">
         <noscript>
-            <link rel="stylesheet" href="{{ asset('css/about.css?v=3') }}">
-            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/about.css') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}">
         </noscript>
     @elseif (request()->routeIs('photos'))
-        <link rel="stylesheet" href="{{ asset('css/photos.css?v=2') }}" media="print" onload="this.media='all'">
-        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/photos.css') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}" media="print" onload="this.media='all'">
         <noscript>
-            <link rel="stylesheet" href="{{ asset('css/photos.css?v=2') }}">
-            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/photos.css') }}">
+            <link rel="stylesheet" href="{{ hashed_asset('css/main.css') }}">
         </noscript>
     @endif
 </head>
@@ -175,7 +175,7 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/main.js') }}" defer></script>
+    <script src="{{ hashed_asset('js/main.js') }}" defer></script>
 </body>
 
 </html>

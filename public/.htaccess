@@ -14,31 +14,120 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
+    # Direct access to storage files
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^storage/(.*)$ storage/$1 [L]
+    RewriteCond %{REQUEST_URI} ^/storage/(.*)$
+    RewriteRule ^storage/(.*)$ storage/$1 [L,NC]
+
+    # Rewrite content-hashed static assets to base file (fallback if physical file missing)
+    # e.g. /css/main.8598d306.css -> /css/main.css
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.+)\.([0-9a-fA-F]{8,32})\.(js|css|svg)$ $1.$3 [L]
+
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-
-    # Add these lines after RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^storage/(.*)$ storage/$1 [L]
-
-    # Allow direct access to storage files
-    RewriteCond %{REQUEST_URI} ^/storage/(.*)$
-    RewriteRule ^storage/(.*)$ storage/$1 [L,NC]
 </IfModule>
 
+# ----------------------------------------------------------------------
+# HTTP/2 and HTTP/3 Protocol Support
+# ----------------------------------------------------------------------
+<IfModule mod_http2.c>
+    Protocols h2 h2c http/1.1
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Modern MIME Types
+# ----------------------------------------------------------------------
 <IfModule mod_mime.c>
-    AddType font/woff2 .woff2
-    AddType font/woff .woff
+    AddType font/woff2                          .woff2
+    AddType font/woff                           .woff
+    AddType font/ttf                            .ttf
+    AddType font/otf                            .otf
+    AddType image/avif                          .avif
+    AddType image/webp                          .webp
+    AddType image/svg+xml                       .svg .svgz
+    AddType application/json                    .json
+    AddType application/javascript              .js
+    AddType text/css                            .css
+    AddEncoding gzip                            .svgz
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Compression: Brotli with Gzip fallback
+# ----------------------------------------------------------------------
+# Brotli compression (mod_brotli)
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml font/eot font/otf font/ttf font/opentype image/svg+xml
+    BrotliCompressionQuality 6
+</IfModule>
+
+# Gzip fallback (mod_deflate)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml font/eot font/otf font/ttf font/opentype image/svg+xml image/x-icon
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Cache-Control & Expires Headers
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # HTML documents: immediate revalidation
+    ExpiresByType text/html                     "access plus 0 seconds"
+    ExpiresByType text/plain                    "access plus 0 seconds"
+    ExpiresByType application/xhtml+xml         "access plus 0 seconds"
+    ExpiresByType application/json              "access plus 0 seconds"
+
+    # CSS and JavaScript: 1 year
+    ExpiresByType text/css                      "access plus 1 year"
+    ExpiresByType text/javascript               "access plus 1 year"
+    ExpiresByType application/javascript        "access plus 1 year"
+    ExpiresByType application/x-javascript      "access plus 1 year"
+
+    # Webfonts: 1 year
+    ExpiresByType font/woff2                    "access plus 1 year"
+    ExpiresByType font/woff                     "access plus 1 year"
+    ExpiresByType font/ttf                      "access plus 1 year"
+    ExpiresByType font/otf                      "access plus 1 year"
+    ExpiresByType application/font-woff2        "access plus 1 year"
+    ExpiresByType application/x-font-woff       "access plus 1 year"
+
+    # Images: 1 year
+    ExpiresByType image/avif                    "access plus 1 year"
+    ExpiresByType image/webp                    "access plus 1 year"
+    ExpiresByType image/jpeg                    "access plus 1 year"
+    ExpiresByType image/png                     "access plus 1 year"
+    ExpiresByType image/gif                     "access plus 1 year"
+    ExpiresByType image/svg+xml                 "access plus 1 year"
+    ExpiresByType image/x-icon                  "access plus 1 year"
 </IfModule>
 
 <IfModule mod_headers.c>
-    <FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|ico|woff2|woff)$">
-        Header set Cache-Control "max-age=31536000, public, immutable"
-    </FilesMatch>
+    # 1. Base cache for unhashed CSS/JS (30 days)
     <FilesMatch "\.(css|js)$">
-        Header set Cache-Control "max-age=2592000, public"
+        Header set Cache-Control "public, max-age=2592000"
     </FilesMatch>
+
+    # 2. Content-hashed assets (1 year immutable)
+    <FilesMatch "\.([0-9a-fA-F]{8,32})\.(css|js|svg)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # 3. Static fonts and images (1 year immutable)
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|ico|woff2|woff|ttf|eot)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # 4. HTML / Dynamic pages (must revalidate so asset hash changes take effect immediately)
+    <FilesMatch "\.(html|htm|php)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+
+    # Inform downstream proxies that content varies by Accept-Encoding
+    Header append Vary "Accept-Encoding"
 </IfModule>

@@ -28,5 +28,7 @@ jobs:
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
+            echo "Generating content-hashed assets..."
+            php artisan assets:hash --clean
             php artisan view:cache
             echo "Deployment completed successfully!"

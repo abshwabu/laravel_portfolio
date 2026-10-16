@@ -43,9 +43,8 @@
 
     <link rel="canonical" href="https://abshewabu.dev" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="{{ asset('fonts/space-grotesk-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('fonts/inter-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
 
     @if (request()->routeIs('index') && $user && $user->hero_gif)
         @php
@@ -61,23 +60,49 @@
         @endif
     @endif
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <style>
+        @include('partials.critical-css')
+    </style>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css?v=4') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/header.css?v=4') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/home.css?v=2') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/footer.css?v=4') }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/footer.css?v=4') }}"></noscript>
 
-    <link rel="stylesheet" href="{{ asset('css/projects.css?v=4') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/photos.css?v=1') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/footer.css?v=3') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/about.css?v=2') }}" type="text/css">
+    @if (request()->routeIs('index'))
+        <link rel="stylesheet" href="{{ asset('css/home.css?v=3') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <noscript>
+            <link rel="stylesheet" href="{{ asset('css/home.css?v=3') }}">
+            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+        </noscript>
+    @elseif (request()->routeIs('projects'))
+        <link rel="stylesheet" href="{{ asset('css/projects.css?v=5') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <noscript>
+            <link rel="stylesheet" href="{{ asset('css/projects.css?v=5') }}">
+            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+        </noscript>
+    @elseif (request()->routeIs('about'))
+        <link rel="stylesheet" href="{{ asset('css/about.css?v=3') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <noscript>
+            <link rel="stylesheet" href="{{ asset('css/about.css?v=3') }}">
+            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+        </noscript>
+    @elseif (request()->routeIs('photos'))
+        <link rel="stylesheet" href="{{ asset('css/photos.css?v=2') }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}" media="print" onload="this.media='all'">
+        <noscript>
+            <link rel="stylesheet" href="{{ asset('css/photos.css?v=2') }}">
+            <link rel="stylesheet" href="{{ asset('css/main.css?v=5') }}">
+        </noscript>
+    @endif
 </head>
 
 <body>
     <header class="header">
         <a href="/" class="header-logo">{{ '@' . $user->username }}</a>
         <nav class="nav">
-            <div class="toggle"><i class="fas fa-bars"></i></div>
+            <div class="toggle"><x-app-icon name="bars" width="1.5rem" height="1.5rem" /></div>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="{{ route('about') }}" @class(['is-current' => request()->routeIs('about')])>About</a></li>
                 <li class="nav-item"><a href="{{ route('projects') }}" @class(['is-current' => request()->routeIs('projects')])>Projects</a></li>
@@ -108,22 +133,22 @@
                     <ul>
                         <li class="social-link">
                             <a href="{{ $user->linkedin_url }}" aria-label="LinkedIn" target="_blank">
-                                <i class="fa-brands fa-linkedin-in"></i>
+                                <x-app-icon name="linkedin" />
                             </a>
                         </li>
                         <li class="social-link">
                             <a href="{{ $user->github_url }}" aria-label="GitHub" target="_blank">
-                                <i class="fa-brands fa-github"></i>
+                                <x-app-icon name="github" />
                             </a>
                         </li>
                         <li class="social-link">
                             <a href="{{ $user->insta_url }}" aria-label="Instagram" target="_blank">
-                                <i class="fa-brands fa-instagram"></i>
+                                <x-app-icon name="instagram" />
                             </a>
                         </li>
                     </ul>
                 </div>
-                <span class="copyright"><i class="fa-regular fa-copyright"></i> {{ $user->name }} -
+                <span class="copyright"><x-app-icon name="copyright" width="0.875rem" height="0.875rem" /> {{ $user->name }} -
                     {{ now()->format('Y') }}</span>
             </div>
             <div class="footer-column">
@@ -150,7 +175,7 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
 </body>
 
 </html>

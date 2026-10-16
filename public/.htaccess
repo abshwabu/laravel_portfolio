@@ -29,8 +29,16 @@
     RewriteRule ^storage/(.*)$ storage/$1 [L,NC]
 </IfModule>
 
+<IfModule mod_mime.c>
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+</IfModule>
+
 <IfModule mod_headers.c>
-    <FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|ico)$">
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|ico|woff2|woff)$">
         Header set Cache-Control "max-age=31536000, public, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=2592000, public"
     </FilesMatch>
 </IfModule>

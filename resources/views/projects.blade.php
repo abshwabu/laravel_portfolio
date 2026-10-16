@@ -76,11 +76,11 @@
                             <div class="project-links">
                                 <a href="{{ $project->url }}" aria-label="Visit {{ $project->title }} live site"
                                     target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
-                                    <i class="fas fa-external-link-alt"></i>
+                                    <x-app-icon name="external-link" width="1rem" height="1rem" />
                                 </a>
                                 <a href="{{ $project->github_url }}" aria-label="View {{ $project->title }} on GitHub"
                                     target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
-                                    <i class="fa-brands fa-github"></i>
+                                    <x-app-icon name="github" width="1rem" height="1rem" />
                                 </a>
                             </div>
                         </div>

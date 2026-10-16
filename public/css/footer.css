@@ -53,11 +53,16 @@
     gap: 0.75rem;
 }
 
-.socials ul li a i {
+.socials ul li a i,
+.socials ul li a svg,
+.socials ul li a .icon {
     font-size: 1.25rem;
 }
 
 .copyright {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.04em;

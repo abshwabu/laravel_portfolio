@@ -162,7 +162,9 @@
     color: var(--accent);
 }
 
-.project-section .project-links a i {
+.project-section .project-links a i,
+.project-section .project-links a svg,
+.project-section .project-links a .icon {
     font-size: 1rem;
     padding: 0;
 }

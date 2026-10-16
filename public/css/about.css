@@ -119,12 +119,14 @@
     letter-spacing: 0.04em;
 }
 
-.about-section .right-side-buttons i {
+.about-section .right-side-buttons i,
+.about-section .right-side-buttons svg {
     font-size: 0.75rem;
     color: var(--muted);
 }
 
-.about-section .right-side-buttons i:not(:last-child) {
+.about-section .right-side-buttons i:not(:last-child),
+.about-section .right-side-buttons svg:not(:last-child) {
     margin-right: 0.625rem;
 }
 
@@ -282,15 +284,19 @@
     border-bottom-color: var(--accent);
 }
 
-.about-section .contact-link i {
+.about-section .contact-link i,
+.about-section .contact-link svg {
     width: 1.25rem;
+    height: 1.25rem;
     font-size: 1.125rem;
     color: var(--muted);
     text-align: center;
     transition: color 0.2s ease;
+    flex-shrink: 0;
 }
 
-.about-section .contact-link:hover i {
+.about-section .contact-link:hover i,
+.about-section .contact-link:hover svg {
     color: var(--accent);
 }
 

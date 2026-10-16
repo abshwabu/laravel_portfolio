@@ -126,7 +126,9 @@ html[data-theme="dark"] #theme-toggle .theme-icon-moon {
     color: var(--ink);
 }
 
-.toggle i {
+.toggle i,
+.toggle svg,
+.toggle .icon {
     font-size: 1.5rem;
 }
 

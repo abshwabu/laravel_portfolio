@@ -10,13 +10,16 @@ const toggle = document.querySelector(".toggle");
 const menu = document.querySelector(".nav-menu");
 const themeToggle = document.getElementById("theme-toggle");
 
+const barsIcon = `<svg class="icon" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+const timesIcon = `<svg class="icon" viewBox="0 0 24 24" width="1.25rem" height="1.25rem" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
 function toggleMenu() {
     if (menu.classList.contains("active")) {
         menu.classList.remove("active");
-        toggle.innerHTML = `<i class="fas fa-bars">`;
+        toggle.innerHTML = barsIcon;
     } else {
         menu.classList.add("active");
-        toggle.innerHTML = `<i class="fas fa-times"></i>`;
+        toggle.innerHTML = timesIcon;
     }
 }
 

@@ -25,9 +25,9 @@
                     <div class="terminal-header">
                         <div class="terminal-title">{{ $user->username }}.exe</div>
                         <div class="right-side-buttons">
-                            <i class="fa-solid fa-window-minimize" aria-hidden="true"></i>
-                            <i class="fa-solid fa-window-restore" aria-hidden="true"></i>
-                            <i class="fa-solid fa-window-close" aria-hidden="true"></i>
+                            <x-app-icon name="minimize" width="0.75rem" height="0.75rem" />
+                            <x-app-icon name="restore" width="0.75rem" height="0.75rem" />
+                            <x-app-icon name="close" width="0.75rem" height="0.75rem" />
                         </div>
                     </div>
                     <div class="terminal-window">
@@ -146,19 +146,19 @@
             <h3 class="reveal">Contact</h3>
             <div class="contact-grid">
                 <a href="{{ $user->linkedin_url }}" class="contact-link" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                    <x-app-icon name="linkedin" width="1.25rem" height="1.25rem" />
                     <span>LinkedIn</span>
                 </a>
                 <a href="{{ $user->github_url }}" class="contact-link" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    <x-app-icon name="github" width="1.25rem" height="1.25rem" />
                     <span>GitHub</span>
                 </a>
                 <a href="{{ $user->instagram_url }}" class="contact-link" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+                    <x-app-icon name="telegram" width="1.25rem" height="1.25rem" />
                     <span>Telegram</span>
                 </a>
                 <a href="mailto:{{ $user->email }}" class="contact-link">
-                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                    <x-app-icon name="envelope" width="1.25rem" height="1.25rem" />
                     <span>Email</span>
                 </a>
             </div>

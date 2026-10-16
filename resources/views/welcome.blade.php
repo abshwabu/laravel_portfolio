@@ -12,17 +12,17 @@
                 <ul class="hero-socials">
                     <li class="social-link">
                         <a href="{{ $user->linkedin_url }}" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-linkedin-in"></i>
+                            <x-app-icon name="linkedin" />
                         </a>
                     </li>
                     <li class="social-link">
                         <a href="{{ $user->github_url }}" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i>
+                            <x-app-icon name="github" />
                         </a>
                     </li>
                     <li class="social-link">
                         <a href="{{ $user->instagram_url }}" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-telegram"></i>
+                            <x-app-icon name="telegram" />
                         </a>
                     </li>
                 </ul>
@@ -81,11 +81,11 @@
                             <div class="project-links">
                                 <a href="{{ $project->url }}" aria-label="Visit {{ $project->title }} live site"
                                     target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
-                                    <i class="fas fa-external-link-alt"></i>
+                                    <x-app-icon name="external-link" width="1rem" height="1rem" />
                                 </a>
                                 <a href="{{ $project->github_url }}" aria-label="View {{ $project->title }} on GitHub"
                                     target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
-                                    <i class="fa-brands fa-github"></i>
+                                    <x-app-icon name="github" width="1rem" height="1rem" />
                                 </a>
                             </div>
                         </div>

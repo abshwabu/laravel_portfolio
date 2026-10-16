@@ -44,7 +44,9 @@
     height: 2.5rem;
 }
 
-.home-section .hero-socials a i {
+.home-section .hero-socials a i,
+.home-section .hero-socials a svg,
+.home-section .hero-socials a .icon {
     font-size: 1.25rem;
 }
 
@@ -184,7 +186,9 @@
     color: var(--accent);
 }
 
-.home-section .project-links a i {
+.home-section .project-links a i,
+.home-section .project-links a svg,
+.home-section .project-links a .icon {
     font-size: 1rem;
     padding: 0;
 }

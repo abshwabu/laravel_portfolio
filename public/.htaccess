@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
+        Options -MultiViews -Indexes +FollowSymLinks +SymLinksIfOwnerMatch
     </IfModule>
 
     RewriteEngine On
@@ -13,13 +13,6 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
-
-    # Direct access to storage files
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^storage/(.*)$ storage/$1 [L]
-    RewriteCond %{REQUEST_URI} ^/storage/(.*)$
-    RewriteRule ^storage/(.*)$ storage/$1 [L,NC]
 
     # Rewrite content-hashed static assets to base file (fallback if physical file missing)
     # e.g. /css/main.8598d306.css -> /css/main.css

@@ -25,7 +25,8 @@ class ImageResource extends Resource
             ->schema([
                 Forms\Components\FileUpload::make('image')
                     ->columnSpan(2)
-                    ->image(),
+                    ->image()
+                    ->disk('public'),
                 Forms\Components\TextInput::make('url')
                     ->url()
                     ->maxLength(255),
@@ -38,7 +39,8 @@ class ImageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->disk('public'),
                 Tables\Columns\TextColumn::make('url')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')

@@ -337,8 +337,39 @@ button:focus-visible,
     background-color: color-mix(in srgb, var(--ink) 55%, transparent);
 }
 
+[hidden],
+.modal-thumbnails[hidden],
+.gallery-nav[hidden],
+.gallery-counter[hidden],
 .modal-overlay[hidden] {
-    display: none;
+    display: none !important;
+}
+
+.card-preview-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.card-gallery-badge {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .modal-panel {

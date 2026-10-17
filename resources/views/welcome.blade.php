@@ -60,17 +60,25 @@
                         data-modal-tags="{{ $project->keyword }}"
                         data-modal-url="{{ $project->url }}"
                         data-modal-github="{{ $project->github_url }}">
-                        <x-picture
-                            :src="'storage/' . $project->image"
-                            :alt="$project->title . ' preview'"
-                            class="card-preview-img"
-                            width="400"
-                            height="225"
-                            :widths="[400, 800, 1200]"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                            loading="lazy"
-                            decoding="async"
-                        />
+                        <div class="card-preview-wrapper">
+                            <x-picture
+                                :src="'storage/' . $project->image"
+                                :alt="$project->title . ' preview'"
+                                class="card-preview-img"
+                                width="400"
+                                height="225"
+                                :widths="[400, 800, 1200]"
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            @if (count($project->all_images) > 1)
+                                <span class="card-gallery-badge" aria-label="{{ count($project->all_images) }} pictures in gallery">
+                                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    {{ count($project->all_images) }}
+                                </span>
+                            @endif
+                        </div>
                         <div class="project-card-info">
                             <h3 class="project-title">{{ $project->title }}</h3>
                             <div class="project-skills">

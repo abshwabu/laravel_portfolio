@@ -208,7 +208,7 @@ class ProjectImageService
     {
         $cleanPath = ltrim(preg_replace('/\?.*$/', '', $imagePath), '/');
         if (! str_starts_with($cleanPath, 'storage/') && ! str_starts_with($cleanPath, 'img/')) {
-            if (file_exists(public_path('storage/' . $cleanPath))) {
+            if ($this->fileExistsInPublicOrStorage('storage/' . $cleanPath)) {
                 $cleanPath = 'storage/' . $cleanPath;
             } elseif (file_exists(public_path('img/project-preview/' . $cleanPath))) {
                 $cleanPath = 'img/project-preview/' . $cleanPath;
@@ -228,29 +228,34 @@ class ProjectImageService
 
         foreach (self::RESPONSIVE_WIDTHS as $w) {
             $avifRel = "{$dir}/{$name}-{$w}.avif";
-            if (file_exists(public_path($avifRel))) {
-                $avifSources[] = asset($avifRel) . " {$w}w";
+            if ($this->fileExistsInPublicOrStorage($avifRel)) {
+                $avifSources[] = '/' . ltrim($avifRel, '/') . " {$w}w";
             }
             $webpRel = "{$dir}/{$name}-{$w}.webp";
-            if (file_exists(public_path($webpRel))) {
-                $webpSources[] = asset($webpRel) . " {$w}w";
+            if ($this->fileExistsInPublicOrStorage($webpRel)) {
+                $webpSources[] = '/' . ltrim($webpRel, '/') . " {$w}w";
             }
         }
 
         // Thumb: 400w webp if available, or webp root, or fallback
-        $thumbUrl = asset($cleanPath);
-        if (file_exists(public_path("{$dir}/{$name}-400.webp"))) {
-            $thumbUrl = asset("{$dir}/{$name}-400.webp");
-        } elseif (file_exists(public_path("{$dir}/{$name}.webp"))) {
-            $thumbUrl = asset("{$dir}/{$name}.webp");
+        $thumbUrl = '/' . ltrim($cleanPath, '/');
+        if ($this->fileExistsInPublicOrStorage("{$dir}/{$name}-400.webp")) {
+            $thumbUrl = '/' . ltrim("{$dir}/{$name}-400.webp", '/');
+        } elseif ($this->fileExistsInPublicOrStorage("{$dir}/{$name}.webp")) {
+            $thumbUrl = '/' . ltrim("{$dir}/{$name}.webp", '/');
         }
 
         // Default display image (800w webp/avif or fallback)
-        $displayWebp = file_exists(public_path("{$dir}/{$name}-800.webp")) ? asset("{$dir}/{$name}-800.webp") : (file_exists(public_path("{$dir}/{$name}.webp")) ? asset("{$dir}/{$name}.webp") : null);
-        $displayAvif = file_exists(public_path("{$dir}/{$name}-800.avif")) ? asset("{$dir}/{$name}-800.avif") : (file_exists(public_path("{$dir}/{$name}.avif")) ? asset("{$dir}/{$name}.avif") : null);
+        $displayWebp = $this->fileExistsInPublicOrStorage("{$dir}/{$name}-800.webp")
+            ? '/' . ltrim("{$dir}/{$name}-800.webp", '/')
+            : ($this->fileExistsInPublicOrStorage("{$dir}/{$name}.webp") ? '/' . ltrim("{$dir}/{$name}.webp", '/') : null);
+
+        $displayAvif = $this->fileExistsInPublicOrStorage("{$dir}/{$name}-800.avif")
+            ? '/' . ltrim("{$dir}/{$name}-800.avif", '/')
+            : ($this->fileExistsInPublicOrStorage("{$dir}/{$name}.avif") ? '/' . ltrim("{$dir}/{$name}.avif", '/') : null);
 
         return [
-            'src' => asset($cleanPath),
+            'src' => '/' . ltrim($cleanPath, '/'),
             'thumb' => $thumbUrl,
             'avif_srcset' => implode(', ', $avifSources),
             'webp_srcset' => implode(', ', $webpSources),
@@ -258,6 +263,26 @@ class ProjectImageService
             'display_webp' => $displayWebp,
             'name' => $name,
         ];
+    }
+
+    /**
+     * Check if a relative path exists either in public_path or storage_path(app/public).
+     */
+    public function fileExistsInPublicOrStorage(string $relPath): bool
+    {
+        $clean = ltrim(preg_replace('/\?.*$/', '', $relPath), '/');
+        if (file_exists(public_path($clean))) {
+            return true;
+        }
+
+        if (str_starts_with($clean, 'storage/')) {
+            $storageRel = substr($clean, 8);
+            if (file_exists(storage_path('app/public/' . $storageRel))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

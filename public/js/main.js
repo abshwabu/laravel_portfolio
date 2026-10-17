@@ -181,15 +181,45 @@ if (projectModal) {
         currentGalleryIndex = (index + galleryImages.length) % galleryImages.length;
         const img = galleryImages[currentGalleryIndex];
 
-        if (modalSourceAvif) {
-            modalSourceAvif.srcset = img.avif_srcset || "";
-        }
-        if (modalSourceWebp) {
-            modalSourceWebp.srcset = img.webp_srcset || "";
-        }
+        if (galleryViewport) {
+            const currentPicture = galleryViewport.querySelector(".modal-picture");
+            const newPicture = document.createElement("picture");
+            newPicture.className = "modal-picture";
 
-        modalImage.src = img.src || "";
-        modalImage.alt = img.alt || modalTitle.textContent || "Project preview";
+            if (img.avif_srcset) {
+                const sAvif = document.createElement("source");
+                sAvif.className = "modal-source-avif";
+                sAvif.type = "image/avif";
+                sAvif.srcset = img.avif_srcset;
+                sAvif.sizes = "(max-width: 800px) 100vw, 800px";
+                newPicture.appendChild(sAvif);
+            }
+
+            if (img.webp_srcset) {
+                const sWebp = document.createElement("source");
+                sWebp.className = "modal-source-webp";
+                sWebp.type = "image/webp";
+                sWebp.srcset = img.webp_srcset;
+                sWebp.sizes = "(max-width: 800px) 100vw, 800px";
+                newPicture.appendChild(sWebp);
+            }
+
+            const newImg = document.createElement("img");
+            newImg.className = "modal-image";
+            newImg.src = img.display_webp || img.src || "";
+            newImg.alt = img.alt || modalTitle.textContent || "Project preview";
+            newImg.width = 800;
+            newImg.height = 450;
+            newImg.loading = "eager";
+            newImg.decoding = "async";
+            newPicture.appendChild(newImg);
+
+            if (currentPicture) {
+                currentPicture.replaceWith(newPicture);
+            } else {
+                galleryViewport.prepend(newPicture);
+            }
+        }
 
         if (galleryCounter) {
             galleryCounter.textContent = `${currentGalleryIndex + 1} / ${galleryImages.length}`;

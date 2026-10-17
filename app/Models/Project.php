@@ -33,9 +33,15 @@ class Project extends Model
             $all[] = $this->image;
         }
 
-        if (is_array($this->images)) {
-            foreach ($this->images as $img) {
-                if (! empty($img) && ! in_array($img, $all)) {
+        $gallery = $this->images;
+        if (is_string($gallery)) {
+            $decoded = json_decode($gallery, true);
+            $gallery = is_array($decoded) ? $decoded : (trim($gallery) !== '' ? [$gallery] : []);
+        }
+
+        if (is_iterable($gallery)) {
+            foreach ($gallery as $img) {
+                if (! empty($img) && is_string($img) && ! in_array($img, $all)) {
                     $all[] = $img;
                 }
             }

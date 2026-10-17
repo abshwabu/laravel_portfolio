@@ -53,6 +53,8 @@ class ProjectGalleryTest extends TestCase
         $this->assertArrayHasKey('webp_srcset', $data);
         $this->assertArrayHasKey('src', $data);
         $this->assertArrayHasKey('thumb', $data);
+        $this->assertStringStartsWith('/storage/', $data['src']);
+        $this->assertStringStartsWith('/storage/', $data['thumb']);
 
         // Clean up
         foreach (glob("{$this->testDir}/{$baseName}*") as $f) {

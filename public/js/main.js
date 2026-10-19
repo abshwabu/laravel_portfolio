@@ -208,10 +208,29 @@ if (projectModal) {
             newImg.className = "modal-image";
             newImg.src = img.display_webp || img.src || "";
             newImg.alt = img.alt || modalTitle.textContent || "Project preview";
-            newImg.width = 800;
-            newImg.height = 450;
             newImg.loading = "eager";
             newImg.decoding = "async";
+
+            const updateOrientation = () => {
+                if (newImg.naturalWidth && newImg.naturalHeight) {
+                    const isPortrait = newImg.naturalHeight > newImg.naturalWidth;
+                    galleryViewport.classList.toggle("is-portrait", isPortrait);
+                    if (isPortrait) {
+                        newImg.width = newImg.naturalWidth;
+                        newImg.height = newImg.naturalHeight;
+                    } else {
+                        newImg.width = 800;
+                        newImg.height = 450;
+                    }
+                }
+            };
+
+            if (newImg.complete && newImg.naturalWidth) {
+                updateOrientation();
+            } else {
+                newImg.addEventListener("load", updateOrientation, { once: true });
+            }
+
             newPicture.appendChild(newImg);
 
             if (currentPicture) {
@@ -325,6 +344,9 @@ if (projectModal) {
         projectModal.classList.remove("is-open");
         projectModal.hidden = true;
         document.body.style.overflow = "";
+        if (galleryViewport) {
+            galleryViewport.classList.remove("is-portrait");
+        }
         isModalOpen = false;
 
         if (activeCard) {

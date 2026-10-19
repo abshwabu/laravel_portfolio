@@ -74,7 +74,7 @@ class ProjectResource extends Resource
                     ->searchable(),
                 TextColumn::make('github_url')
                     ->label('GitHub URL')
-                    ->url(fn (Project $record): string => $record->github_url)
+                    ->url(fn (Project $record): ?string => filled($record->github_url) ? $record->github_url : null)
                     ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
